@@ -1,0 +1,47 @@
+.edit-body{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+    
+}
+
+.text-area {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.edit-body .input-title{
+    border: none;
+    outline:medium;
+    height: 2.1em;
+}
+
+.edit-body .input-text-area{
+    flex: 1;
+}
+
+.edit-body .input-content{
+    height: 25em;
+    width: 100%;
+    border: none;    /* 去掉边框 */
+    outline:medium;   /* 去掉点击时候显示的边框 */
+    resize: none;
+}
+
+.edit-body .md-text-area {
+    flex: 1;
+}
+
+
+.edit-body .md-title{
+    height: 2.1em;
+}
+
+.edit-body .publish{
+    float: right;
+}
+
+/* .edit-body h4{
+    margin: 0;
+    padding: 0;
+} */

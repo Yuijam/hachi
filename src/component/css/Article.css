@@ -1,0 +1,10 @@
+.article-body{
+    max-width: 500px;
+    margin: 0 auto;
+    /* background-color: rgb(250, 247, 247); */
+    padding: 10px;
+}
+
+.article-body .opt{
+    text-align: right;
+}

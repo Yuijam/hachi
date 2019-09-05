@@ -1,0 +1,38 @@
+.login-body{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.login-body .main{
+    position: absolute;
+    background: #fff;
+    top:40%;
+    left: 30%;
+    right: 30%;
+    text-align: center;
+}
+
+
+
+/* 
+.close {
+    border-radius: 12px;
+    line-height: 20px;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    font-size: 18px;
+    padding: 1px;
+}
+.close::before {
+    content: "\2717";
+}
+.close {
+    top: -5px;
+    right: -5px;
+    position: absolute;
+} */

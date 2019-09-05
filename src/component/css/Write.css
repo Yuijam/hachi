@@ -1,0 +1,53 @@
+.write-body{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+    
+}
+
+.text-area {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.write-body .input-title{
+    border: none;
+    outline:medium;
+    height: 2.1em;
+}
+
+.write-body .input-text-area{
+    flex: 1;
+    /* word-wrap : break-word; */
+}
+
+.write-body .input-content{
+    height: 25em;
+    width: 400px;
+    border: none;    /* 去掉边框 */
+    outline:medium;   /* 去掉点击时候显示的边框 */
+    resize: none;
+}
+
+.write-body .md-text-area {
+    flex: 1;
+}
+
+.write-body .md-content{
+    height: 25em;
+    width: 400px;
+}
+
+.write-body .md-title{
+    height: 2.1em;
+}
+
+.write-body .publish{
+    float: right;
+}
+
+
+/* .write-body h4{
+    margin: 0;
+    padding: 0;
+} */

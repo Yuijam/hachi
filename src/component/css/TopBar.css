@@ -1,0 +1,10 @@
+.topbar-body {
+    background-color: black;
+    height: 2em;
+}
+
+.topbar-body .register,.login, .username, .login-out, .write{
+    color: white;
+    float: right;
+    margin-right: 15px;
+}
