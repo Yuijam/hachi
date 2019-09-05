@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 import WriteNew from './WriteNew'
 import {Redirect} from "react-router-dom";
 import axios from 'axios';
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state, ownProps) => ({
+    userInfo: state.userInfo
+})
 
 class WriteEdit extends Component{
 
@@ -19,7 +24,7 @@ class WriteEdit extends Component{
 
     render(){
         let {redir} = this.state
-        if (redir) return <Redirect to={`/article/${this.props.location.state.id}`}/>;
+        if (redir) return <Redirect to={`/user/${this.props.userInfo.username}/article/${this.props.location.state.id}`}/>;
         let {title, text_origin, text_md} = this.props.location.state
 
         return(
@@ -28,4 +33,4 @@ class WriteEdit extends Component{
     }
 }
 
-export default WriteEdit
+export default connect(mapStateToProps)(WriteEdit)

@@ -13,7 +13,6 @@ class WriteNew extends Component{
     state = {id:'', redir:false}
 
     onPublish = (write_state) => {
-        console.log(this)
         let articleInfo = {...write_state, username:this.props.userInfo.username}
         if (this.props.onPublish){
             console.log('11 articleInfo', articleInfo)
@@ -33,9 +32,8 @@ class WriteNew extends Component{
     }
 
     render(){
-
         let {redir} = this.state
-        if (redir) return <Redirect to={`/article/${this.state.id}`}/>;
+        if (redir) return <Redirect to={`/user/${this.props.userInfo.username}/article/${this.state.id}`}/>;
         let {title, text_origin, text_md} = this.props
         
         return(

@@ -3,7 +3,7 @@ import ArticleList from './ArticleList'
 import TopBar from '../containers/UserTopBar';
 import { Route, Switch } from 'react-router-dom';
 import WriteNew from '../containers/WriteNew';
-import Article from './Article';
+import Article from '../containers/ArticleContainer';
 import WriteEdit from '../containers/WriteEdit'
 class Home extends Component {
 
@@ -16,7 +16,7 @@ class Home extends Component {
 				<TopBar url={url}/>
 				<Switch>
 					<Route path={`${url}/write`} component={WriteNew} />
-					<Route path='/edit' component={WriteEdit} />
+					<Route path={`${url}/edit`} component={WriteEdit} />
 					<Route path={`${url}/article/:id`} component={Article} />
 					<Route component={ArticleList} username={this.username}/>
 				</Switch>

@@ -52,7 +52,6 @@ class Write extends Component{
     }
 
     render(){
-
         return(
             <div className='write-body'>
                 <div className='text-area'>
