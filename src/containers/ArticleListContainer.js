@@ -1,41 +1,56 @@
 import React, {Component} from 'react';
-import ArticleList from './ArticleListContainer'
+import ArticleList from '../component/ArticleList'
 import axios from 'axios';
 
 class ArticleListContainer extends Component{
 
-    state = {username:'', articleList:[]}
+    state = {username:'', article_list:[]}
 
-    fetchArticleListData(username){
-        if (!username) return
-        
-        this.setState({username:username})
+    _isMounted = false;
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    componentDidMount(){
+        this._isMounted = true;
+        let username = this.parseUsername(this.props)
+        if (!username || username === 'undefined') {
+            console.log('componentDidMount return')    
+            return true
+        };
+
+        this.getData(username);
+    }
+
+    getData = (username)=>{
         axios.get(`/api/article_list?username=${username}`).then((response) => {
-            console.log(response.data);
-            this.setState({articleList:response.data.article_list});
+            console.log('getDate = ', response.data);
+            if (this._isMounted){
+                this.setState({username:username, article_list:response.data.article_list});
+            }
         }).catch((error) => {
             console.log(error);
         });
     }
 
-    componentWillMount(){
-        let {username} = this.props
-        if (!username) return
-        
-        this.setState({username:username})
-        axios.get(`/api/article_list?username=${username}`).then((response) => {
-            console.log(response.data);
-            this.setState({articleList:response.data.article_list});
-        }).catch((error) => {
-            console.log(error);
-        });
+    parseUsername(props){
+        let {username} = props.match.params
+        return username
+    }
+
+    componentWillReceiveProps(nextProps){
+        // console.log('componentWillReceiveProps', nextProps)
+        let username = this.parseUsername(nextProps)
+        if (this.state.username === username || !username || username==='undefined') return false;
+        this.getData(username);
+        return true
     }
 
     render(){
-        // let {username} = this.props;
-        // let data = this.fetchArticleListData(username);
+        const {url} = this.props.match
         return(
-            <ArticleList articleList={this.state.articleList}/>
+            <ArticleList article_list={this.state.article_list} url={url}/>
         )
     }
 }

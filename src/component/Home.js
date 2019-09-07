@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import ArticleList from './ArticleList'
+// import ArticleList from './ArticleList'
+import ArticleList from '../containers/ArticleListContainer'
 import TopBar from '../containers/UserTopBar';
 import { Route, Switch } from 'react-router-dom';
 import WriteNew from '../containers/WriteNew';
