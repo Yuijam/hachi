@@ -13,9 +13,8 @@ class WriteNew extends Component{
     state = {id:'', redir:false}
 
     onPublish = (write_state) => {
-        let articleInfo = {...write_state, username:this.props.userInfo.username}
+        let articleInfo = {...write_state, owner:this.props.userInfo.username}
         if (this.props.onPublish){
-            console.log('11 articleInfo', articleInfo)
             this.props.onPublish(articleInfo)
         }else{
             this.publishNew(articleInfo)

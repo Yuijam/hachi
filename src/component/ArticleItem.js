@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 class ArticleItem extends Component{
 
     render(){
-        console.log('fdaaaaaaaaaaaa', this.props)
         const {title, _id} = this.props.itemData
         let {url} = this.props
         return(

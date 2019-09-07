@@ -8,6 +8,7 @@ import axios from 'axios';
 import { connect } from 'react-redux'
 import { updateUserInfo } from '../actions'
 import './css/App.css';
+import {Redirect} from 'react-router-dom';
 
 const mapStateToProps = (state, ownProps) => ({
 	userInfo: state.userInfo
@@ -45,14 +46,18 @@ class App extends Component {
 	}
 
 	render() {
-		let { location, userInfo } = this.props;
+		const { location } = this.props;
 		let isLogin = !!(
 			location.state &&
 			location.state.isFloatPage &&
 			this.previousLocation !== location
 		); // not initial render
 		// console.log('isLogin = ', isLogin)
-		// console.log('location.state = ', location.state)
+		console.log('app location.state = ', location)
+		let pathname = location.pathname
+		if (pathname && pathname!== '/' && pathname.charAt(pathname.length-1) === '/'){
+			return <Redirect to={pathname.slice(0, pathname.length-1)}/>
+		}
 		// console.log('this.previousLocation = ', this.previousLocation, location)
 		return (
 			<div className='app-body'>

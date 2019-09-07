@@ -13,24 +13,25 @@ class ArticleContainer extends Component{
 
     state={
         id: -1,
+        owner:'',
         title: '',
         text_md: '',
         text_origin:'',
         del:false,
         redir:false
     }
-
-    constructor(props){
-        super(props);
-        this._isMounted = false;
-    }
+    
+    _isMounted = false;
 
     componentDidMount(){
         let {match} = this.props
         this._isMounted = true;
         axios.get(`/api/article/${match.params.id}`).then((response) => {
             if (this._isMounted){
-                this.setState({id:match.params.id, title:response.data.title, text_md:response.data.text_md, text_origin:response.data.text_origin});
+                console.log('2222222222response', response.data)
+                this.setState({owner:response.data.owner, id:match.params.id, title:response.data.title, text_md:response.data.text_md, text_origin:response.data.text_origin});
+                // console.log({id:match.params.id, ...response.data})
+                // this.state({id:match.params.id, ...response.data})
             }
         }).catch((error) => {
             console.log(error);
@@ -54,11 +55,12 @@ class ArticleContainer extends Component{
     render(){
         let {redir, del} = this.state;
         let {histroy} = this.props;
-
-        if (del) return <Redirect to={`/user/${this.props.userInfo.username}`}/>;
+        let username = this.props.userInfo.username
+        let isOwner = this.state.owner === username
+        if (del) return <Redirect to={`/user/${username}`}/>;
 
         if (redir) {
-            histroy.replace(`/user/${this.props.userInfo.username}/edit`)
+            histroy.replace(`/user/${username}/edit`)
             return;
         }
         
@@ -66,7 +68,8 @@ class ArticleContainer extends Component{
             <Article 
                 {...this.state} 
                 onDelete={this.onDelete} 
-                toEditUrl={{pathname:`/user/${this.props.userInfo.username}/edit`, state:this.state}}
+                isOwner={isOwner}
+                toEditUrl={{pathname:username ? `/user/${username}/edit` : '', state:this.state}}
             />
         )
     }

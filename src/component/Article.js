@@ -16,13 +16,15 @@ class Article extends Component{
                     <pre className='text_md' dangerouslySetInnerHTML={{__html: this.props.text_md}}></pre>
                 </div>
 
-                <div className='opt'>
-                    <Link onClick={this.props.onDelete} to='#'>Delete</Link>
-                    
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                {this.props.isOwner ? 
+                    <div className='opt'>
+                        <Link onClick={this.props.onDelete} to='#'>Delete</Link>
+                        
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-                    <Link replace={true} to={this.props.toEditUrl}>Edit</Link>
-                </div>
+                        <Link replace={true} to={this.props.toEditUrl} >Edit</Link>
+                    </div>
+                    : ''}
                 
             </div>
         )
