@@ -9,7 +9,7 @@ class ArticleItem extends Component{
         return(
             <div>
                 <div className='article_item'>
-                    <Link to={`${url}/article/${_id}`}>{title}</Link>
+                    <Link to={`${url}article/${_id}`}>{title}</Link>
                 </div>
             </div>
         )

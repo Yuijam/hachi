@@ -1,59 +1,64 @@
 import React, { Component } from 'react'
+import 'antd/dist/antd.css';
 import './css/Login.css'
-import axios from 'axios';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
-class Login extends Component{
+class Login extends Component {
 
-    onLogin = (e) =>{
-        console.log('onlogin')
+    handleSubmit = e => {
         e.preventDefault();
-        // console.trace()
-        // debugger
-        axios.post('/api/login', this.state).then((response) => {
-            console.log('login data = ', response.data);
-            if (response.data.length > 0){
-                console.log('log sucess')
-                this.props.setUserInfo(response.data[0])
-                this.history.goBack();
-            }else{
-                console.log('login fail')
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+                this.props.onLogin(values)
             }
-        }).catch((error) => {
-            console.log(error);
         });
-    }
+    };
 
-    onClose = (e) =>{
-        console.log('111111111111onClose ', this.history)
-        e.stopPropagation();
-        this.history.goBack();
-    }
-
-    handleUsernameChange = (e) => {
-        this.setState({username:e.target.value})
-    }
-
-    handlePasswordChange = (e) => {
-        this.setState({password:e.target.value})
-    }
-
-    render(){
-        this.history = this.props.history
-
-        return(
-            <div className='login-body'>
-                <form className='main' onSubmit={this.onLogin}>
-                    <p>Login</p>
-                    username:<input type='text' onChange={this.handleUsernameChange}/><br/><br/>
-                    password:<input type='password' onChange={this.handlePasswordChange}/><br/><br/>
-                    <button type='submit'>Login</button>
-                    {/* <span className='close'></span> */}
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <button onClick={this.onClose}>Close</button>
-                </form>
-            </div>
+    render() {
+        const { getFieldDecorator } = this.props.form;
+        const {loading} = this.props
+        return (
+            <Form onSubmit={this.handleSubmit} className="login-form">
+                <Form.Item>
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
+                    })(
+                        <Input
+                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            placeholder="Username"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: 'Please input your Password!' }],
+                    })(
+                        <Input
+                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            type="password"
+                            placeholder="Password"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('remember', {
+                        valuePropName: 'checked',
+                        initialValue: true,
+                    })(<Checkbox>Remember me</Checkbox>)}
+                    <a className="login-form-forgot" href="#">
+                        Forgot password
+              </a>
+                    <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
+                        Log in
+              </Button>
+                    Or <a href="#">register now!</a>
+                </Form.Item>
+            </Form>
         );
     }
 }
 
-export default Login
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);
+
+export default WrappedNormalLoginForm

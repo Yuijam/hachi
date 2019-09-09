@@ -14,7 +14,7 @@ class TopBar extends Component{
             ?   <PageHeader 
                     title="Hachi" 
                     subTitle="ready to work" 
-                    extra={[<Button key='3' onClick={onLogout}>Logout</Button>, <Link key='2' to={{pathname:`/user/${userInfo.username}`}}><Button>{userInfo.username}</Button></Link> ]}
+                    extra={[<Button key='3' onClick={onLogout}>Logout</Button>, <Link key='2' to={{pathname:`/user/${userInfo.username}/`}}><Button>{userInfo.username}</Button></Link> ]}
                 />
             
             :  
@@ -25,11 +25,6 @@ class TopBar extends Component{
                         <Link key='3' to={{pathname:'/register', state:{isFloatPage:true}}}><Button key='3'>Register</Button></Link>
                     , <Link key='2' to={{pathname:'/login', state:{isFloatPage:true}}}><Button key='2'>Login</Button></Link> ]}
                 />
-                // <div className='topbar-body'>
-                //     <Link className='register' to={{pathname:'/register', state:{isFloatPage:true}}}>Register</Link>
-                //     <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                //     <Link className='login' to={{pathname:'/login', state:{isFloatPage:true}}}>Login</Link>
-                // </div>
         );
     }
 }

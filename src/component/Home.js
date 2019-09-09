@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 // import ArticleList from './ArticleList'
 import ArticleList from '../containers/ArticleListContainer'
-import TopBar from '../containers/UserTopBar';
+// import TopBar from '../containers/UserTopBar';
 import { Route, Switch } from 'react-router-dom';
 import WriteNew from '../containers/WriteNew';
 import Article from '../containers/ArticleContainer';
@@ -16,7 +16,7 @@ class Home extends Component {
 		console.log('Home username = ', username)
 		return (
 			<div className='app-body'>
-				<TopBar url={url}/>
+				{/* <TopBar/> */}
 				<Switch>
 					<Route path={`${url}/write`} component={WriteNew} />
 					<Route path={`${url}/edit`} component={WriteEdit} />
