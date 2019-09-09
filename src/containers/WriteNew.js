@@ -23,7 +23,7 @@ class WriteNew extends Component{
 
     publishNew = (articleInfo) => {
         axios.post('/api/article', articleInfo).then((response) => {
-            console.log('add then data = ', response.data);
+            // console.log('add then data = ', response.data);
             this.setState({redir:true, id:response.data.insertedId})
         }).catch((error) => {
             console.log(error);

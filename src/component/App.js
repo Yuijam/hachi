@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	setUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo))
+	setUserInfo: (userInfo) => {console.log('setUserInfo', userInfo); dispatch(updateUserInfo(userInfo))}
 })
 
 
@@ -35,7 +35,7 @@ class App extends Component {
 
 	componentWillUpdate(nextProps) {
 		let { location } = this.props;
-
+		console.log('app componentWillUpdate')
 		// set previousLocation if props.location is not modal
 		if (
 			nextProps.history.action !== "POP" &&

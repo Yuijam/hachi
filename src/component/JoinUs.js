@@ -24,8 +24,10 @@ class JoinUs extends Component{
 
     }
     render(){
+        console.log('Join us render')
         let {userInfo} = this.props;
-        if (userInfo) return <Redirect to={`/user/${userInfo.username}`}/>
+        if (userInfo && userInfo.username) return <Redirect to={`/user/${userInfo.username}`}/>
+        console.log('Join us render 2')
 
         return (
             <div className='joinus-body'>

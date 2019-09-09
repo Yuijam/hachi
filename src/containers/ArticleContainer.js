@@ -28,7 +28,7 @@ class ArticleContainer extends Component{
         this._isMounted = true;
         axios.get(`/api/article/${match.params.id}`).then((response) => {
             if (this._isMounted){
-                console.log('2222222222response', response.data)
+                // console.log('2222222222response', response.data)
                 this.setState({owner:response.data.owner, id:match.params.id, title:response.data.title, text_md:response.data.text_md, text_origin:response.data.text_origin});
                 // console.log({id:match.params.id, ...response.data})
                 // this.state({id:match.params.id, ...response.data})
@@ -55,7 +55,8 @@ class ArticleContainer extends Component{
     render(){
         let {redir, del} = this.state;
         let {histroy} = this.props;
-        let username = this.props.userInfo.username
+        console.log('this.props.userInfo = ', this.props.userInfo)
+        let {username=''} = this.props.userInfo
         let isOwner = this.state.owner === username
         if (del) return <Redirect to={`/user/${username}`}/>;
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './css/Article.css'
 
 class Article extends Component{

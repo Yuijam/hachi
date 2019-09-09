@@ -1,4 +1,8 @@
-const index = (state = {}, action) => {
+const initialState = {
+    userInfo:{}
+}
+
+const index = (state = initialState, action) => {
     switch (action.type){
         case 'UPDATE_USER_INFO':
             return {
