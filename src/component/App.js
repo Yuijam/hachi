@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	setUserInfo: (userInfo) => {console.log('setUserInfo', userInfo); dispatch(updateUserInfo(userInfo))}
+	setUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo))
 })
 
 

@@ -7,6 +7,8 @@ class Login extends Component{
     onLogin = (e) =>{
         console.log('onlogin')
         e.preventDefault();
+        // console.trace()
+        // debugger
         axios.post('/api/login', this.state).then((response) => {
             console.log('login data = ', response.data);
             if (response.data.length > 0){
@@ -22,6 +24,7 @@ class Login extends Component{
     }
 
     onClose = (e) =>{
+        console.log('111111111111onClose ', this.history)
         e.stopPropagation();
         this.history.goBack();
     }

@@ -4,6 +4,7 @@ import {updateUserInfo} from '../actions'
 import React, { Component } from 'react'
 import axios from 'axios';
 
+
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
 })
@@ -24,6 +25,8 @@ class UserTopBar extends Component{
     render(){
         let {url} = this.props
         return(
+			// <PageHeader title="Hachi" subTitle="ready to work" extra={[<Button key='3' onClick={this.onLogout}>Logout</Button>, <Button key='2'>{this.props.userInfo.username}</Button>]}/>
+
             <TopBar onLogout={this.onLogout} userInfo={this.props.userInfo} url={url}/>
         )
     }
