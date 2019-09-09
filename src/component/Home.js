@@ -7,7 +7,6 @@ import WriteNew from '../containers/WriteNew';
 import Article from '../containers/ArticleContainer';
 import WriteEdit from '../containers/WriteEdit'
 
-
 class Home extends Component {
 
 	render(){

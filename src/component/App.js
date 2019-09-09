@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../containers/LoginContainer';
 import Home from './Home';
-import Register from './Register';
+// import Register from './Register';
+import Register from '../containers/RegisterContainer'
 import JoinUs from './JoinUs';
 import axios from 'axios';
 import { connect } from 'react-redux'

@@ -41,7 +41,7 @@ class LoginContainer extends Component{
 
     render(){
         if (this.state.username) {
-            return <Redirect to={`/user/${this.state.username}`}/>
+            return <Redirect to={`/user/${this.state.username}/`}/>
         }
 
         return (
