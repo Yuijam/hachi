@@ -7,10 +7,11 @@ import axios from 'axios';
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
+    buttonVisible: state.buttonVisible
 })
     
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    clearUserInfo: () => dispatch(updateUserInfo({}))
+    clearUserInfo: () => dispatch(updateUserInfo({})),
 })
 
 class UserTopBar extends Component{
@@ -23,11 +24,11 @@ class UserTopBar extends Component{
     }
 
     render(){
-        let {url} = this.props
+        let {url, buttonVisible, userInfo, isWritePage} = this.props
         return(
 			// <PageHeader title="Hachi" subTitle="ready to work" extra={[<Button key='3' onClick={this.onLogout}>Logout</Button>, <Button key='2'>{this.props.userInfo.username}</Button>]}/>
 
-            <TopBar onLogout={this.onLogout} userInfo={this.props.userInfo} url={url}/>
+            <TopBar onLogout={this.onLogout} userInfo={userInfo} url={url} buttonVisible={buttonVisible} isWritePage={isWritePage}/>
         )
     }
 }

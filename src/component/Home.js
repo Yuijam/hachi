@@ -12,7 +12,7 @@ class Home extends Component {
 	render(){
 		let {username} = this.props.match.params
 		let {url} = this.props.match
-		console.log('Home username = ', username)
+		console.log('Home username = ', username, url)
 		return (
 			<div className='app-body'>
 				{/* <TopBar/> */}

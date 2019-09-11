@@ -5,6 +5,7 @@ import './css/Article.css'
 class Article extends Component{
 
     render(){
+        console.log('this.props.text_md', this.props.text_md)
         return (
             <div className='article-body'>
                 <div>

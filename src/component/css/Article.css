@@ -8,3 +8,8 @@
 .article-body .opt{
     text-align: right;
 }
+
+.article-body .text_md li{
+    font-size: 100%;
+    margin: 0;
+}

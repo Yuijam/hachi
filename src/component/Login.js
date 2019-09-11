@@ -48,7 +48,7 @@ class Login extends Component {
                     })(<Checkbox>Remember me</Checkbox>)}
                     <a className="login-form-forgot" href="#">
                         Forgot password
-              </a>
+                    </a>
                     <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
                         Log in
               </Button>

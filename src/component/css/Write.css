@@ -1,45 +1,57 @@
 .write-body{
-    max-width: 900px;
+    /* max-width: 100%; */
     margin: 0 auto;
     padding: 10px;
     
 }
 
-.text-area {
+/* .text-area {
     display: -webkit-flex;
-    display: flex;
+    display: inline-block;
+} */
+
+.write-body .input-text-area{
+    /* flex: 1; */
+    display: inline-block;
+    /* word-wrap : break-word; */
+    height: 100%;
+    width: 50%;
+    vertical-align: top;
 }
 
 .write-body .input-title{
     border: none;
     outline:medium;
-    height: 2.1em;
-}
-
-.write-body .input-text-area{
-    flex: 1;
-    /* word-wrap : break-word; */
+    /* height: 2.5em; */
+    display: block;
+    font-size: 1.5em;
 }
 
 .write-body .input-content{
-    height: 25em;
-    width: 400px;
+    width: 100%;
+    /* height: 100%; */
+    height: 100vh;
+    /* height: 300px; */
     border: none;    /* 去掉边框 */
     outline:medium;   /* 去掉点击时候显示的边框 */
     resize: none;
+    font-size: 1.2em;
 }
 
 .write-body .md-text-area {
-    flex: 1;
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    width: 50%;
 }
 
 .write-body .md-content{
-    height: 25em;
-    width: 400px;
+    display: block;
 }
 
 .write-body .md-title{
-    height: 2.1em;
+    /* height: 2.1em; */
+    display: block;
 }
 
 .write-body .publish{

@@ -1,5 +1,5 @@
 const initialState = {
-    userInfo:{}
+    userInfo:{},
 }
 
 const index = (state = initialState, action) => {

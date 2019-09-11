@@ -13,17 +13,15 @@ import './css/App.css';
 import TopBar from '../containers/UserTopBar';
 
 const mapStateToProps = (state, ownProps) => ({
-	userInfo: state.userInfo
+	userInfo: state.userInfo,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	setUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo))
+	setUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo)),
 })
 
 
 class App extends Component {
-
-	previousLocation = this.props.location;
 
 	componentDidMount() {
 		axios.get('/session').then((response) => {
@@ -43,9 +41,12 @@ class App extends Component {
 		// 	return <Redirect to={pathname.slice(0, pathname.length-1)}/>
 		// }
 		// console.log('this.previousLocation = ', this.previousLocation, location)
+		let isWritePage = false
+		if (this.props.location.pathname === '/user/yuijam/write') isWritePage=true;
+
 		return (
 			<div className='app-body'>
-				<TopBar />
+				<TopBar isWritePage={isWritePage}/>
 				<Switch >
 					<Route exact path='/' component={JoinUs} />
 					<Route path='/user/:username/' component={Home} />

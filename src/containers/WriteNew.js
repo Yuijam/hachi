@@ -5,7 +5,7 @@ import Write from '../component/Write'
 import axios from 'axios';
 
 const mapStateToProps = (state, ownProps) => ({
-    userInfo: state.userInfo
+    userInfo: state.userInfo,
 })
 
 class WriteNew extends Component{
@@ -34,6 +34,7 @@ class WriteNew extends Component{
         let {redir} = this.state
         if (redir) return <Redirect to={`/user/${this.props.userInfo.username}/article/${this.state.id}`}/>;
         let {title, text_origin, text_md} = this.props
+        // console.log('write new', this.props)
         
         return(
             <Write onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md}/>

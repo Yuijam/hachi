@@ -51,14 +51,22 @@ class Write extends Component{
         })
     }
 
+    onKeyDown = (e)=>{
+        if (e.key === "Tab") {
+            e.preventDefault();
+            // alert("Execute ajax call after tab pressed");    
+            this.setState({text_origin:this.state.text_origin+'    '})
+        }
+    }
+
     render(){
         return(
             <div className='write-body'>
                 <div className='text-area'>
                     <div className='input-text-area'>
-                        <input className='input-title' placeholder='input title' onChange={this.onTitleChange} value={this.state.title} />
+                        <input autoFocus='autofocus' className='input-title' placeholder='input title' onChange={this.onTitleChange} value={this.state.title} />
                         {/* <hr/> */}
-                        <textarea className='input-content' placeholder='input content' onChange={this.onTextChange} value={this.state.text_origin}/>
+                        <textarea onKeyDown={this.onKeyDown} className='input-content' placeholder='input content' onChange={this.onTextChange} value={this.state.text_origin}/>
                     </div>
 
                     <div className='md-text-area'>
@@ -68,7 +76,7 @@ class Write extends Component{
                     </div>
                 </div>
             
-                <button className='publish' onClick={this.onPublish}>Done</button>
+                {/* <button className='publish' onClick={this.onPublish}>Done</button> */}
             </div>
         );
     }
