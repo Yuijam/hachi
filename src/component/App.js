@@ -41,12 +41,12 @@ class App extends Component {
 		// 	return <Redirect to={pathname.slice(0, pathname.length-1)}/>
 		// }
 		// console.log('this.previousLocation = ', this.previousLocation, location)
-		let isWritePage = false
-		if (this.props.location.pathname === '/user/yuijam/write') isWritePage=true;
+		// let isWritePage = false
+		// if (this.props.location.pathname === '/user/yuijam/write') isWritePage=true;
 
 		return (
 			<div className='app-body'>
-				<TopBar isWritePage={isWritePage}/>
+				<TopBar/>
 				<Switch >
 					<Route exact path='/' component={JoinUs} />
 					<Route path='/user/:username/' component={Home} />

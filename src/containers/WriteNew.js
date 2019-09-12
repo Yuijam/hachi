@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Redirect} from "react-router-dom";
 import { connect } from 'react-redux'
-import Write from '../component/Write'
 import axios from 'axios';
+import BtnCtr from './BtnCtr'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
@@ -37,7 +37,7 @@ class WriteNew extends Component{
         // console.log('write new', this.props)
         
         return(
-            <Write onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md}/>
+            <BtnCtr onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md}/>
         );
     }
 }

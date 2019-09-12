@@ -1,5 +1,6 @@
 const initialState = {
     userInfo:{},
+    buttonVisible:{write:true, done:false}
 }
 
 const index = (state = initialState, action) => {
@@ -8,6 +9,11 @@ const index = (state = initialState, action) => {
             return {
                 ...state,
                 userInfo:action.userInfo
+            }
+        case 'UPDATE_BUTTON_STATE':
+            return {
+                ...state,
+                buttonVisible:action.buttonVisible
             }   
         default:
             return state

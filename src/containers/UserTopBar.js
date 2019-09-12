@@ -24,11 +24,11 @@ class UserTopBar extends Component{
     }
 
     render(){
-        let {url, buttonVisible, userInfo, isWritePage} = this.props
+        let {url, buttonVisible, userInfo} = this.props
         return(
 			// <PageHeader title="Hachi" subTitle="ready to work" extra={[<Button key='3' onClick={this.onLogout}>Logout</Button>, <Button key='2'>{this.props.userInfo.username}</Button>]}/>
 
-            <TopBar onLogout={this.onLogout} userInfo={userInfo} url={url} buttonVisible={buttonVisible} isWritePage={isWritePage}/>
+            <TopBar onLogout={this.onLogout} userInfo={userInfo} url={url} buttonVisible={buttonVisible}/>
         )
     }
 }
