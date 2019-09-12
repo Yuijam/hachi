@@ -36,6 +36,7 @@ class Write extends Component{
     }
 
     onTextChange = (event)=>{
+        console.log(marked(event.target.value))
         this.setState({text_md:marked(event.target.value), text_origin:event.target.value})
     }
 

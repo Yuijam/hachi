@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     clearUserInfo: () => dispatch(updateUserInfo({})),
 })
 
-class UserTopBar extends Component{
+class TopBarContainer extends Component{
     
     onLogout = ()=>{
         console.log('onLogout')
@@ -23,14 +23,16 @@ class UserTopBar extends Component{
         }).catch((err) => console.log(err))
     }
 
+    onDone = ()=>{
+        
+    }
+
     render(){
         let {url, buttonVisible, userInfo} = this.props
         return(
-			// <PageHeader title="Hachi" subTitle="ready to work" extra={[<Button key='3' onClick={this.onLogout}>Logout</Button>, <Button key='2'>{this.props.userInfo.username}</Button>]}/>
-
             <TopBar onLogout={this.onLogout} userInfo={userInfo} url={url} buttonVisible={buttonVisible}/>
         )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserTopBar)
+export default connect(mapStateToProps, mapDispatchToProps)(TopBarContainer)

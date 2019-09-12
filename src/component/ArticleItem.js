@@ -12,7 +12,7 @@ class ArticleItem extends Component{
         let {url, lastOne} = this.props
         return(
             <div>
-                <Link to={`${url}article/${_id}`}><Title level={2}>{title}</Title></Link>
+                <Link to={`${url}/article/${_id}`}><Title level={2}>{title}</Title></Link>
                 <Paragraph>
                 In the process of internal desktop applications development, many
             different design specs and implementations would be involved, which might

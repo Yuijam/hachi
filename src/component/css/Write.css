@@ -43,21 +43,22 @@
     height: 100%;
     vertical-align: top;
     width: 50%;
+    font-size: 1.2em;
 }
 
 .write-body .md-content{
     display: block;
 }
 
+.write-body .md-content ul{
+    margin-top: -2.5em;
+    line-height: 1em;
+}
+
 .write-body .md-title{
     /* height: 2.1em; */
     display: block;
 }
-
-.write-body .publish{
-    float: right;
-}
-
 
 /* .write-body h4{
     margin: 0;
