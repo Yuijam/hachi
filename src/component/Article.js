@@ -9,9 +9,9 @@ class Article extends Component{
         return (
             <div className='article-body'>
                 <div>
-                    <h3>{this.props.title}</h3>
+                    <h4>{this.props.title}</h4>
                 </div>
-                <hr/>
+                {/* <hr/> */}
                 <div>
                     <pre className='text_md' dangerouslySetInnerHTML={{__html: this.props.text_md}}></pre>
                 </div>

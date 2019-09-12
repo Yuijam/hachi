@@ -9,7 +9,11 @@
     text-align: right;
 }
 
-.article-body .text_md li{
-    font-size: 100%;
-    margin: 0;
+.article-body .text_md{
+    font-size: 1.2em;
+}
+
+.article-body .text_md ul{
+    /* margin-top: -1em; */
+    line-height: 1em;
 }
