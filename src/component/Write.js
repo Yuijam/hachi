@@ -6,6 +6,7 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import PropTypes from 'prop-types'
 // import 'highlight.js/styles/monokai-sublime.css';
+import { Button } from 'antd';
 
 marked.setOptions({
     highlight: function(code, lang, callback) {
@@ -36,7 +37,7 @@ class Write extends Component{
     }
 
     onTextChange = (event)=>{
-        console.log(marked(event.target.value))
+        // console.log(marked(event.target.value))
         this.setState({text_md:marked(event.target.value), text_origin:event.target.value})
     }
 
@@ -55,7 +56,6 @@ class Write extends Component{
     onKeyDown = (e)=>{
         if (e.key === "Tab") {
             e.preventDefault();
-            // alert("Execute ajax call after tab pressed");    
             this.setState({text_origin:this.state.text_origin+'    '})
         }
     }
@@ -63,6 +63,9 @@ class Write extends Component{
     render(){
         return(
             <div className='write-body'>
+                <div className='tool-bar'>
+                    <Button onClick={this.onPublish}>Done</Button>
+                </div>
                 <div className='text-area'>
                     <div className='input-text-area'>
                         <input autoFocus='autofocus' className='input-title' placeholder='input title' onChange={this.onTitleChange} value={this.state.title} />

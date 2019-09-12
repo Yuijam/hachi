@@ -4,6 +4,6 @@ export const updateUserInfo = userInfo => ({
 })
 
 export const updateBtnVisibleState = v => ({
-    type: 'UPDATE_BUTTON_STATE',
+    type: 'UPDATE_BUTTON_VISIBLE',
     buttonVisible:v
 })

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Redirect} from "react-router-dom";
 import { connect } from 'react-redux'
 import axios from 'axios';
-import BtnCtr from './BtnCtr'
+import Write from '../component/Write'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
@@ -34,10 +34,8 @@ class WriteNew extends Component{
         let {redir} = this.state
         if (redir) return <Redirect to={`/user/${this.props.userInfo.username}/article/${this.state.id}`}/>;
         let {title, text_origin, text_md} = this.props
-        // console.log('write new', this.props)
-        
         return(
-            <BtnCtr onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md}/>
+            <Write onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md}/>
         );
     }
 }

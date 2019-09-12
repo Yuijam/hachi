@@ -10,7 +10,7 @@ const index = (state = initialState, action) => {
                 ...state,
                 userInfo:action.userInfo
             }
-        case 'UPDATE_BUTTON_STATE':
+        case 'UPDATE_BUTTON_VISIBLE':
             return {
                 ...state,
                 buttonVisible:action.buttonVisible

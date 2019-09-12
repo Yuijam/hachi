@@ -60,7 +60,6 @@
     display: block;
 }
 
-/* .write-body h4{
-    margin: 0;
-    padding: 0;
-} */
+.write-body .tool-bar{
+    text-align: right;
+}

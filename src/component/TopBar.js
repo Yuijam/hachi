@@ -7,20 +7,18 @@ import 'antd/dist/antd.css';
 class TopBar extends Component{
 
     render(){
-        let {userInfo, onLogout=()=>{}, buttonVisible} = this.props
-
-        console.log('topbar userinfo = ', userInfo)
-        console.log('topbar buttonVisible = ', buttonVisible)
+        let {userInfo, onLogout=()=>{}} = this.props
+        // console.log('topbar userinfo = ', userInfo)
         return(
             userInfo && userInfo.username && userInfo.username !== 'undefined'
             ?   <PageHeader 
                     title="Hachi" 
                     subTitle="ready to work" 
                     extra={[
-                        buttonVisible.done ? <Button key='5' onClick={onLogout}>Done</Button> : null, 
-                        buttonVisible.write ? <Link key='4' to={{pathname:`/user/${userInfo.username}/write`}}><Button>Write</Button></Link> : null, 
-                    <Button key='3' onClick={onLogout}>Logout</Button>, 
-                    <Link key='2' to={{pathname:`/user/${userInfo.username}/`}}><Button>{userInfo.username}</Button></Link> ]}
+                        <Link key='4' to={{pathname:`/user/${userInfo.username}/write`}}><Button>Write</Button></Link>, 
+                        <Button key='3' onClick={onLogout}>Logout</Button>, 
+                        <Link key='2' to={{pathname:`/user/${userInfo.username}/`}}><Button>{userInfo.username}</Button></Link> 
+                    ]}
                 />
             
             :  
