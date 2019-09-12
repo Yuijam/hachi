@@ -10,10 +10,11 @@ const mapStateToProps = (state, ownProps) => ({
 
 class WriteNew extends Component{
 
-    state = {id:'', redir:false}
+    state = {id:'', redir:false, isDoneLoading:false}
 
     onPublish = (write_state) => {
         let articleInfo = {...write_state, owner:this.props.userInfo.username}
+        this.setState({isDoneLoading:true})
         if (this.props.onPublish){
             this.props.onPublish(articleInfo)
         }else{
@@ -35,7 +36,7 @@ class WriteNew extends Component{
         if (redir) return <Redirect to={`/user/${this.props.userInfo.username}/article/${this.state.id}`}/>;
         let {title, text_origin, text_md} = this.props
         return(
-            <Write onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md}/>
+            <Write onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md} isDoneLoading={this.state.isDoneLoading}/>
         );
     }
 }

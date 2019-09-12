@@ -64,7 +64,7 @@ class Write extends Component{
         return(
             <div className='write-body'>
                 <div className='tool-bar'>
-                    <Button onClick={this.onPublish}>Done</Button>
+                    <Button onClick={this.onPublish} loading={this.props.isDoneLoading}>Done</Button>
                 </div>
                 <div className='text-area'>
                     <div className='input-text-area'>
