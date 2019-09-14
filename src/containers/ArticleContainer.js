@@ -12,39 +12,40 @@ const mapStateToProps = (state, ownProps) => ({
 class ArticleContainer extends Component{
 
     state={
-        id: -1,
-        owner:'',
-        title: '',
-        text_md: '',
-        text_origin:'',
+        // id: -1,
+        // owner:'',
+        // title: '',
+        // text_md: '',
+        // text_origin:'',
         del:false,
         redir:false
     }
     
-    _isMounted = false;
+    // _isMounted = false;
 
-    componentDidMount(){
-        let {match} = this.props
-        this._isMounted = true;
-        axios.get(`/api/article/${match.params.id}`).then((response) => {
-            if (this._isMounted){
-                // console.log('2222222222response', response.data)
-                this.setState({owner:response.data.owner, id:match.params.id, title:response.data.title, text_md:response.data.text_md, text_origin:response.data.text_origin});
-                // console.log({id:match.params.id, ...response.data})
-                // this.state({id:match.params.id, ...response.data})
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
+    // componentDidMount(){
+    //     let {match} = this.props
+    //     this._isMounted = true;
+    //     axios.get(`/api/article/${match.params.id}`).then((response) => {
+    //         if (this._isMounted){
+    //             // console.log('2222222222response', response.data)
+    //             this.setState({owner:response.data.owner, id:match.params.id, title:response.data.title, text_md:response.data.text_md, text_origin:response.data.text_origin});
+    //             // console.log({id:match.params.id, ...response.data})
+    //             // this.state({id:match.params.id, ...response.data})
+    //         }
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     });
+    // }
 
-    componentWillUnmount(){
-        this._isMounted = false;
-    }
+    // componentWillUnmount(){
+    //     this._isMounted = false;
+    // }
 
     onDelete = (e)=>{
         e.preventDefault();
-        axios.delete(`/api/article/${this.state.id}`).then((response) => {
+        let {articleData} = this.props.location
+        axios.delete(`/api/article/${articleData._id}`).then((response) => {
             console.log('on del article = ', response.data);
             this.setState({del:true})
         }).catch((error) => {
@@ -55,9 +56,11 @@ class ArticleContainer extends Component{
     render(){
         let {redir, del} = this.state;
         let {histroy} = this.props;
+        let {articleData} = this.props.location
+        console.log('articleData', articleData)
         console.log('this.props.userInfo = ', this.props.userInfo)
         let {username=''} = this.props.userInfo
-        let isOwner = this.state.owner === username
+        let isOwner = articleData.owner === username
         if (del) return <Redirect to={`/user/${username}`}/>;
 
         if (redir) {
@@ -67,10 +70,10 @@ class ArticleContainer extends Component{
         
         return (
             <Article 
-                {...this.state} 
+                {...articleData} 
                 onDelete={this.onDelete} 
                 isOwner={isOwner}
-                toEditUrl={{pathname:username ? `/user/${username}/edit` : '', state:this.state}}
+                toEditUrl={{pathname:username ? `/user/${username}/edit` : '', state:articleData}}
             />
         )
     }

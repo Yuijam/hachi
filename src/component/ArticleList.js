@@ -8,7 +8,7 @@ class ArticleList extends Component {
 
     render(){
         const {article_list, url} = this.props
-        console.log('article_list', article_list)
+        // console.log('article_list', article_list)
         return (
             <Typography className='article-list-body'>
                 {article_list.map((itemData, i) => {

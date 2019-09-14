@@ -13,9 +13,10 @@ class WriteEdit extends Component{
     state = {redir:false}
 
     onPublish = (write_state) => {
-        let {id} = this.props.location.state
-        axios.put(`/api/article/${id}`, write_state).then((response) => {
-            console.log('add then data = ', response.data);
+        let {_id} = this.props.location.state
+        axios.put(`/api/article/${_id}`, write_state).then((response) => {
+            // console.log('add then data = ', response.data);
+            this.articleData = {_id:_id, ...write_state}
             this.setState({redir:true})
         }).catch((error) => {
             console.log(error);
@@ -24,7 +25,10 @@ class WriteEdit extends Component{
 
     render(){
         let {redir} = this.state
-        if (redir) return <Redirect to={`/user/${this.props.userInfo.username}/article/${this.props.location.state.id}`}/>;
+        if (redir) return <Redirect to={
+            {pathname:`/user/${this.props.userInfo.username}/article/${this.props.location.state._id}`, 
+            articleData:this.articleData}
+        }/>;
         let {title, text_origin, text_md} = this.props.location.state
 
         return(
