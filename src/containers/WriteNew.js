@@ -24,7 +24,8 @@ class WriteNew extends Component{
 
     publishNew = (articleInfo) => {
         axios.post('/api/article', articleInfo).then((response) => {
-            // console.log('add then data = ', response.data);
+            console.log('add then data = ', response.data);
+            this.articleData = {_id:response.data.insertedId, ...articleInfo}
             this.setState({redir:true, id:response.data.insertedId})
         }).catch((error) => {
             console.log(error);
@@ -33,7 +34,7 @@ class WriteNew extends Component{
 
     render(){
         let {redir} = this.state
-        if (redir) return <Redirect to={`/user/${this.props.userInfo.username}/article/${this.state.id}`}/>;
+        if (redir) return <Redirect to={{pathname:`/user/${this.props.userInfo.username}/article/${this.state.id}`, articleData:this.articleData}}/>;
         let {title, text_origin, text_md} = this.props
         return(
             <Write onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md} isDoneLoading={this.state.isDoneLoading}/>

@@ -7,6 +7,8 @@ import 'highlight.js/styles/github.css';
 import PropTypes from 'prop-types'
 // import 'highlight.js/styles/monokai-sublime.css';
 import { Button } from 'antd';
+import ReactMarkdown from 'react-markdown'
+import CodeBlock from './CodeBlock'
 
 marked.setOptions({
     highlight: function(code, lang, callback) {
@@ -75,12 +77,12 @@ class Write extends Component{
 
                     <div className='md-text-area'>
                         <h4 className='md-title'>{this.state.title}</h4>
-                        {/* <hr/> */}
-                        <pre className='md-content' dangerouslySetInnerHTML={{__html: this.state.text_md}}></pre>
+                        <div className="result-pane">
+                            <ReactMarkdown source={this.state.text_origin} renderers={{code: CodeBlock}}/>
+                        </div>
+
                     </div>
                 </div>
-            
-                {/* <button className='publish' onClick={this.onPublish}>Done</button> */}
             </div>
         );
     }

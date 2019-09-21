@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import Article from '../component/Article'
 // import Write from '../component/Write';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo
@@ -12,35 +13,9 @@ const mapStateToProps = (state, ownProps) => ({
 class ArticleContainer extends Component{
 
     state={
-        // id: -1,
-        // owner:'',
-        // title: '',
-        // text_md: '',
-        // text_origin:'',
         del:false,
         redir:false
     }
-    
-    // _isMounted = false;
-
-    // componentDidMount(){
-    //     let {match} = this.props
-    //     this._isMounted = true;
-    //     axios.get(`/api/article/${match.params.id}`).then((response) => {
-    //         if (this._isMounted){
-    //             // console.log('2222222222response', response.data)
-    //             this.setState({owner:response.data.owner, id:match.params.id, title:response.data.title, text_md:response.data.text_md, text_origin:response.data.text_origin});
-    //             // console.log({id:match.params.id, ...response.data})
-    //             // this.state({id:match.params.id, ...response.data})
-    //         }
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
-    // }
-
-    // componentWillUnmount(){
-    //     this._isMounted = false;
-    // }
 
     onDelete = (e)=>{
         e.preventDefault();
@@ -57,7 +32,8 @@ class ArticleContainer extends Component{
         let {redir, del} = this.state;
         let {histroy} = this.props;
         let {articleData} = this.props.location
-        console.log('articleData', articleData)
+        if (!articleData) return <div></div>
+
         console.log('this.props.userInfo = ', this.props.userInfo)
         let {username=''} = this.props.userInfo
         let isOwner = articleData.owner === username
