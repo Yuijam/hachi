@@ -4,6 +4,7 @@ import {updateUserInfo} from '../actions'
 import {Redirect} from "react-router-dom";
 import {Link} from 'react-router-dom';
 import './css/JoinUs.css'
+import { Button } from 'antd';
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo
@@ -32,8 +33,8 @@ class JoinUs extends Component{
         return (
             <div className='joinus-body'>
                 <h1>Join Us?</h1>
-                <Link to={{pathname:'/login', state:{isFloatPage:true}}}><button type='button'>Login</button></Link>
-                <Link to={{pathname:'/register', state:{isFloatPage:true}}}><button type='button'>Register</button></Link>
+                <Link to={{pathname:'/login', state:{isFloatPage:true}}}><Button >Login</Button></Link>
+                <Link to={{pathname:'/register', state:{isFloatPage:true}}}><Button >Register</Button></Link>
             </div>
         )
     }

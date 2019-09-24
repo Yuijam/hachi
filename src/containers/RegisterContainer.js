@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import Register from '../component/Register'
 import {Redirect} from 'react-router-dom';
+import { message } from 'antd';
 
 class RegisterContainer extends Component{
 
@@ -11,13 +12,11 @@ class RegisterContainer extends Component{
         console.log('onRegister', values)
         axios.post('/api/register', values).then((response) => {
             console.log('register data = ', response.data);
-            if (response.data.ok === 1){
-                this.setState({registerSuc:true})
-            }else{
-                console.log('Register ERROR')
-            }
+            this.setState({registerSuc:true})
+            message.success('Register Successed')
         }).catch((error) => {
             console.log(error);
+            message.error('Register Failed')
         });
     }
 

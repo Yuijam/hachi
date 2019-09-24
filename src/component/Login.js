@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'antd/dist/antd.css';
 import './css/Login.css'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import md5 from 'md5'
 
 class Login extends Component {
 
@@ -10,7 +11,7 @@ class Login extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                this.props.onLogin(values)
+                this.props.onLogin({...values, password:md5(values.password)})
             }
         });
     };
@@ -51,7 +52,7 @@ class Login extends Component {
                     </a>
                     <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
                         Log in
-              </Button>
+                </Button>
                     Or <a href="#">register now!</a>
                 </Form.Item>
             </Form>

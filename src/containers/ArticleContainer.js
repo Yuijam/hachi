@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import Article from '../component/Article'
 // import Write from '../component/Write';
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo

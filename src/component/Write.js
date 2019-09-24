@@ -49,6 +49,12 @@ class Write extends Component{
         }
     }
 
+    onCancel = ()=>{
+        if (this.props.onCancel){
+            this.props.onCancel()
+        }
+    }
+
     onTitleChange = (event)=>{
         this.setState({
             title: event.target.value
@@ -66,6 +72,7 @@ class Write extends Component{
         return(
             <div className='write-body'>
                 <div className='tool-bar'>
+                    <Button onClick={this.onCancel}>Cancel</Button>
                     <Button onClick={this.onPublish} loading={this.props.isDoneLoading}>Done</Button>
                 </div>
                 <div className='text-area'>

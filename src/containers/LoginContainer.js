@@ -4,6 +4,7 @@ import {updateUserInfo} from '../actions'
 import React, { Component } from 'react'
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
+import { message } from 'antd';
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo
@@ -23,19 +24,21 @@ class LoginContainer extends Component{
 
         axios.post('/api/login', values).then((response) => {
             console.log('login data = ', response.data);
-            if (response.data.length > 0) {
+            if (response.data) {
                 console.log('log sucess')
-                this.props.setUserInfo(response.data[0])
-                this.setState({loading:false, username:response.data[0].username})
+                this.props.setUserInfo(response.data)
+                this.setState({loading:false, username:response.data.username})
                 // this.history.goBack();
-                
+                message.success('Login Successed!')
             } else {
                 this.setState({loading:false})
                 console.log('login fail')
+                message.error('Login Failed!');
             }
         }).catch((error) => {
             this.setState({loading:false})
             console.log(error);
+            message.error('Login Failed!');
         });
     }
 

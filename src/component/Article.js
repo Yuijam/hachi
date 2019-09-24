@@ -11,6 +11,7 @@ class Article extends Component{
         text_md: PropTypes.string,
         title: PropTypes.string,
         isOwner: PropTypes.bool,
+        writeTime: PropTypes.number,
         onDelete: PropTypes.func
     }
 
@@ -22,8 +23,7 @@ class Article extends Component{
     } 
 
     render(){
-        console.log('this.props.text_md', this.props.text_md)
-        console.log('this.props.isOwner', this.props.isOwner)
+        const writeTime = new Date(this.props.writeTime).toLocaleTimeString()
         return (
             <div className='article-body'>
                 <div>
@@ -32,6 +32,8 @@ class Article extends Component{
                 <div className="text_md">
                     <ReactMarkdown source={this.props.text_origin} renderers={{code: CodeBlock}}/>
                 </div>
+
+                <p className='write-time'>{`created at ${writeTime}`}</p>
 
                 {this.props.isOwner ? 
                     <div className='opt'>

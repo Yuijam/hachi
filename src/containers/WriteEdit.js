@@ -16,7 +16,7 @@ class WriteEdit extends Component{
         let {_id} = this.props.location.state
         axios.put(`/api/article/${_id}`, write_state).then((response) => {
             // console.log('add then data = ', response.data);
-            this.articleData = {_id:_id, ...write_state}
+            this.articleData = {_id:_id, ...write_state, lastEditTime:Number(new Date().valueOf())}
             this.setState({redir:true})
         }).catch((error) => {
             console.log(error);
@@ -32,7 +32,13 @@ class WriteEdit extends Component{
         let {title, text_origin, text_md} = this.props.location.state
 
         return(
-            <WriteNew onPublish={this.onPublish} title={title} text_origin={text_origin} text_md={text_md} />
+            <WriteNew 
+                {...this.props}
+                onPublish={this.onPublish} 
+                title={title} 
+                text_origin={text_origin} 
+                text_md={text_md} 
+            />
         );
     }
 }
