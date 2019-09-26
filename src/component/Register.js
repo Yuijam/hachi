@@ -107,14 +107,14 @@ class Register extends Component {
 	};
 
 	checkEmail = e => {
-		this.checkExist('email', {'email': e.target.value})
+		this.checkExist('email', {'email': e.target.value}, 'email is existed')
 	};
 
 	checkUsername = e => {
-		this.checkExist('username', {'username': e.target.value})
+		this.checkExist('username', {'username': e.target.value}, 'username is existed')
 	}
 
-	checkExist = (field, json) => {
+	checkExist = (field, json, errorMsg) => {
 		console.log('checkExist', field, json)
 		axios.get(`/api/checkExist?data=${JSON.stringify(json)}`).then((response) => {
 			console.log('checkExist getDate = ', response.data);
@@ -122,7 +122,7 @@ class Register extends Component {
 				const { form } = this.props;
 				if (form) {
 					console.log('form is not null')
-					form.setFields({ [field]: { value: Object.values(json)[0], errors: [new Error('email is existed!')] } })
+					form.setFields({ [field]: { value: Object.values(json)[0], errors: [new Error(errorMsg)] } })
 				}
 			}
 		}).catch((error) => {
@@ -168,8 +168,7 @@ class Register extends Component {
 		//   <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
 		// ));
 		return (
-
-			<Form {...formItemLayout} onSubmit={this.handleSubmit} className='register-form'>
+			<Form {...formItemLayout} onSubmit={this.handleSubmit} className='register-form' >
 				<Form.Item label="E-mail" hasFeedback>
 					{getFieldDecorator('email', {
 						rules: [
@@ -184,19 +183,14 @@ class Register extends Component {
 						],
 					})(<Input onBlur={this.checkEmail} />)}
 				</Form.Item>
-				<Form.Item
-					label={
-						<span>
-							username&nbsp;
-                    <Tooltip title="What do you want others to call you?">
-								<Icon type="question-circle-o" />
-							</Tooltip>
-						</span>
-					}
-					hasFeedback
-				>
+				<Form.Item label='Username' hasFeedback>
 					{getFieldDecorator('username', {
-						rules: [{ required: true, message: 'Please input your username!', whitespace: true }],
+						rules: [
+							{ 
+								required: true, message: 'Please input your username!', 
+								whitespace: true 
+							}
+						],
 					})(<Input onBlur={this.checkUsername}/>)}
 				</Form.Item>
 				<Form.Item label="Password" hasFeedback>
@@ -283,6 +277,6 @@ class Register extends Component {
 	}
 }
 
-const WrappedRegistrationForm = Form.create({ name: 'register' })(Register);
+const WrappedRegistrationForm = Form.create({ name: 'register'})(Register);
 
 export default WrappedRegistrationForm
