@@ -36,7 +36,8 @@ class CodeBlock extends React.PureComponent {
 }
 
 CodeBlock.defaultProps = {
-    language: ''
+    language: '',
+    value:''
 }
 
 CodeBlock.propTypes = {

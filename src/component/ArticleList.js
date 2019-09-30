@@ -7,8 +7,9 @@ import { Typography } from "antd";
 class ArticleList extends Component {
 
     render(){
+        console.log('this.props', this.props)
         const {article_list, url} = this.props
-        // console.log('article_list', article_list)
+        if (article_list.length === 0) return <div />
         return (
             <Typography className='article-list-body'>
                 {article_list.map((itemData, i) => {

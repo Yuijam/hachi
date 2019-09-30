@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import './css/Login.css'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import md5 from 'md5'
+import {Link} from 'react-router-dom';
 
 class Login extends Component {
 
@@ -47,13 +48,13 @@ class Login extends Component {
                         valuePropName: 'checked',
                         initialValue: true,
                     })(<Checkbox>Remember me</Checkbox>)}
-                    <a className="login-form-forgot" href="#">
+                    {/* <a className="login-form-forgot" href="#">
                         Forgot password
-                    </a>
+                    </a> */}
                     <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
                         Log in
                 </Button>
-                    Or <a href="#">register now!</a>
+                    Or <Link to='/register'>register now!</Link>
                 </Form.Item>
             </Form>
         );

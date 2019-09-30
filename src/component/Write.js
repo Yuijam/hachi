@@ -18,6 +18,11 @@ marked.setOptions({
 
 class Write extends Component{
 
+    constructor(props){
+        super(props)
+        this.inputTextarea = React.createRef();
+    }
+
     static propTypes = {
         title: PropTypes.string,
         onPublish: PropTypes.func,
@@ -64,7 +69,46 @@ class Write extends Component{
     onKeyDown = (e)=>{
         if (e.key === "Tab") {
             e.preventDefault();
-            this.setState({text_origin:this.state.text_origin+'    '})
+            let start = this.inputTextarea.current.selectionStart
+            let end = this.inputTextarea.current.selectionEnd;
+            let value = this.inputTextarea.current.value;
+            console.log('start = ', start, end)
+            if (start === end){
+                e.target.value = e.target.value.substring(0, start) + '    ' + e.target.value.substring(end)
+                this.inputTextarea.current.selectionStart = this.inputTextarea.current.selectionEnd = start + 4
+            }else{
+    
+                var lineStart = value.lastIndexOf('\n', start),
+                    lineEnd = value.indexOf('\n', end),
+                    offset = 0;
+                console.log('lineStart lineEnd', lineStart, lineEnd)
+                if (lineStart === -1) lineStart = 0;
+                if (lineEnd === -1) lineEnd = value.length;
+        
+                if (lineStart === lineEnd);
+                else if (lineStart !== 0) lineStart += 1;
+        
+                let lines = value.substring(lineStart, lineEnd).split('\n');
+                console.log([lineStart, lineEnd], lines);
+        
+                if (lines.length > 1) {
+                    offset = lines.length;
+                    lines = '\t' + lines.join('\n\t');
+        
+                    this.inputTextarea.current.value = value.substring(0, lineStart) + lines + value.substring(lineEnd);
+        
+                    this.inputTextarea.current.selectionStart = start + 1;
+                    this.inputTextarea.current.selectionEnd = end + offset;
+                } else {
+                    offset = 1;
+                    lines = lines[0];
+        
+                    this.inputTextarea.current.value = value.substring(0, start) + '\t' + value.substring(end);
+        
+                    this.inputTextarea.current.selectionStart = this.inputTextarea.current.selectionEnd = start + offset;
+                }
+            }
+
         }
     }
 
@@ -79,7 +123,7 @@ class Write extends Component{
                     <div className='input-text-area'>
                         <input autoFocus='autofocus' className='input-title' placeholder='input title' onChange={this.onTitleChange} value={this.state.title} />
                         {/* <hr/> */}
-                        <textarea onKeyDown={this.onKeyDown} className='input-content' placeholder='input content' onChange={this.onTextChange} value={this.state.text_origin}/>
+                        <textarea ref={this.inputTextarea} onKeyDown={this.onKeyDown} className='input-content' placeholder='input content' onChange={this.onTextChange} value={this.state.text_origin}/>
                     </div>
 
                     <div className='md-text-area'>

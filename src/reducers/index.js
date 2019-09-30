@@ -1,6 +1,7 @@
 const initialState = {
     userInfo:{},
-    buttonVisible:{write:true, done:false}
+    buttonVisible:{write:true, done:false},
+    curPage:1
 }
 
 const index = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const index = (state = initialState, action) => {
                 ...state,
                 buttonVisible:action.buttonVisible
             }   
+        case 'UPDATE_PAGE':
+            return {
+                ...state,
+                curPage:action.curPage
+            }
         default:
             return state
     }

@@ -4,8 +4,6 @@ import './css/Register.css'
 import {
 	Form,
 	Input,
-	Tooltip,
-	Icon,
 	// Cascader,
 	// Select,
 	// Row,

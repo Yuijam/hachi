@@ -10,6 +10,7 @@ import { updateUserInfo } from '../actions'
 import './css/App.css';
 import {Redirect} from 'react-router-dom';
 import TopBar from '../containers/TopBarContainer';
+// import Article from '../containers/ArticleContainer';
 
 const mapStateToProps = (state, ownProps) => ({
 	userInfo: state.userInfo,
@@ -45,6 +46,7 @@ class App extends Component {
 				<TopBar/>
 				<Switch >
 					<Route exact path='/' component={JoinUs} />
+					{/* <Route path={`/user/:username/article/:id`} component={Article} /> */}
 					<Route path='/user/:username' component={Home} />
 					<Route path='/login' component={Login} />
 					<Route path='/register' component={Register} />
