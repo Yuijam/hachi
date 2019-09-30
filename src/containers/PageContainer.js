@@ -34,6 +34,8 @@ class PageContainer extends Component{
     }
 
     render(){
+        if (this.state.total <= 10) return <div />
+
         return(
             <Page total={this.state.total} onChange={this.onChange} curPage={this.props.curPage}/>
         )
