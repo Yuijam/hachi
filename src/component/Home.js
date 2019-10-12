@@ -31,6 +31,7 @@ class Home extends Component {
 					<Route path={`${url}/write`} component={WriteNew} />
 					<Route path={`${url}/edit`} component={WriteEdit} />
 					<Route path={`${url}/article/:id`} component={Article} />
+					<Route path={`/user/:username/page/:pageIdx/article/:id`} component={Article}/>
 					<Route path={`/user/:username/page/:pageIdx`} component={ArticleList} username={this.username}/>
 					<Route path={`/user/:username`} component={ArticleList} username={this.username}/>
 				</Switch>

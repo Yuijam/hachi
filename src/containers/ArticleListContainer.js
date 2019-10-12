@@ -52,11 +52,11 @@ class ArticleListContainer extends Component{
     }
 
     render(){
-        const {url} = this.props.match
+        const {username} = this.props.match.params
         return(
             <div>
-                <ArticleList article_list={this.state.article_list} url={url}/>
-				<Page username = {this.props.match.params.username}/>
+                <ArticleList article_list={this.state.article_list} username = {username}/>
+				<Page username = {username}/>
             </div>
         )
     }

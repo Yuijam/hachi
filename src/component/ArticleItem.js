@@ -9,10 +9,10 @@ class ArticleItem extends Component{
 
     render(){
         const {title, _id, text_origin} = this.props.itemData
-        let {url, lastOne} = this.props
+        let {lastOne, username} = this.props
         return(
             <div>
-                <Link to={{pathname:`${url}/article/${_id}`, articleData:this.props.itemData}}><Title level={2}>{title}</Title></Link>
+                <Link to={{pathname:`/user/${username}/article/${_id}`, articleData:this.props.itemData}}><Title level={2}>{title}</Title></Link>
                 <Paragraph ellipsis={{ rows: 5, expandable: false }}>
                 {text_origin}
                 </Paragraph>

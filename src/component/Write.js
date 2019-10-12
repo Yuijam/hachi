@@ -6,7 +6,7 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import PropTypes from 'prop-types'
 // import 'highlight.js/styles/monokai-sublime.css';
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 import ReactMarkdown from 'react-markdown'
 import CodeBlock from './CodeBlock'
 
@@ -119,17 +119,18 @@ class Write extends Component{
                     <Button onClick={this.onCancel}>Cancel</Button>
                     <Button onClick={this.onPublish} loading={this.props.isDoneLoading}>Done</Button>
                 </div>
+
                 <div className='text-area'>
                     <div className='input-text-area'>
                         <input autoFocus='autofocus' className='input-title' placeholder='input title' onChange={this.onTitleChange} value={this.state.title} />
                         {/* <hr/> */}
                         <textarea ref={this.inputTextarea} onKeyDown={this.onKeyDown} className='input-content' placeholder='input content' onChange={this.onTextChange} value={this.state.text_origin}/>
                     </div>
-
+                    <Divider className='divider' type="vertical" dashed={true}/>
                     <div className='md-text-area'>
                         <h4 className='md-title'>{this.state.title}</h4>
                         <div className="result-pane">
-                            <ReactMarkdown source={this.state.text_origin} renderers={{code: CodeBlock}}/>
+                            <ReactMarkdown className='md-content' source={this.state.text_origin} renderers={{code: CodeBlock}}/>
                         </div>
 
                     </div>

@@ -15,8 +15,13 @@
     display: inline-block;
     /* word-wrap : break-word; */
     height: 100%;
-    width: 50%;
+    width: 48%;
     vertical-align: top;
+}
+
+.write-body .divider{
+    display: inline-block;
+    height: 100vh;
 }
 
 .write-body .input-title{
@@ -42,12 +47,16 @@
     display: inline-block;
     height: 100%;
     vertical-align: top;
-    width: 50%;
+    width: 48%;
     font-size: 1.2em;
 }
 
 .write-body .md-content{
     display: block;
+
+    /* 下面两行用来自动换行 */
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 /* .write-body .md-content ul{

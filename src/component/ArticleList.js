@@ -8,7 +8,7 @@ class ArticleList extends Component {
 
     render(){
         console.log('this.props', this.props)
-        const {article_list, url} = this.props
+        const {article_list, username} = this.props
         if (article_list.length === 0) return <div />
         return (
             <Typography className='article-list-body'>
@@ -17,8 +17,8 @@ class ArticleList extends Component {
                             className='articleItem' 
                             itemData={itemData} 
                             key={itemData._id} 
-                            url={url} 
                             lastOne={i===article_list.length-1}
+                            username={username}
                         />)
                 })}
             </Typography>
