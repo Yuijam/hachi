@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import TopBar from '../component/TopBar'
 import {updateUserInfo} from '../actions'
 import React, { Component } from 'react'
-import axios from 'axios';
-
+// import axios from 'axios';
+import NavMenu from './NavMenuContainer'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
@@ -16,12 +16,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 class TopBarContainer extends Component{
     
-    onLogout = ()=>{
-        console.log('onLogout')
-        axios.get('/api/logout').then((response) => {
-            this.props.clearUserInfo()
-        }).catch((err) => console.log(err))
-    }
+    // onLogout = ()=>{
+    //     console.log('onLogout')
+    //     axios.get('/api/logout').then((response) => {
+    //         this.props.clearUserInfo()
+    //     }).catch((err) => console.log(err))
+    // }
 
     onDone = ()=>{
         
@@ -30,7 +30,12 @@ class TopBarContainer extends Component{
     render(){
         let {url, buttonVisible, userInfo} = this.props
         return(
-            <TopBar onLogout={this.onLogout} userInfo={userInfo} url={url} buttonVisible={buttonVisible}/>
+            <TopBar 
+                userInfo={userInfo} 
+                url={url} 
+                buttonVisible={buttonVisible} 
+                extra={<NavMenu key='navmenu'/>}
+            />
         )
     }
 }

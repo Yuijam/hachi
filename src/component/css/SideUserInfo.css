@@ -1,0 +1,10 @@
+.side-user-info-body{
+    max-width: 200px;
+    float: right;
+    margin-right: 10%;
+}
+
+.side-user-info-body .avatar-area{
+    padding: 5%;
+    padding-left: 0%;
+}

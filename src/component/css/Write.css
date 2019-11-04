@@ -30,6 +30,7 @@
     /* height: 2.5em; */
     display: block;
     font-size: 1.5em;
+    width: 100%;
 }
 
 .write-body .input-content{
