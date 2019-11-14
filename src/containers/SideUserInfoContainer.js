@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SideUserInfo from '../component/SideUserInfo'
-import axios from 'axios';
 import {connect} from 'react-redux'
+import {reqFollow, reqUnFollow, reqUser} from '../api'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
@@ -31,25 +31,31 @@ class SideUserInfoContainer extends Component{
         }
     }
 
-    follow = (data)=>{
-        axios.put('/api/follow', data).then((response) => {
-            console.log('follow data = ', response.data);
-            const {targetUser} = response.data
-            this.setState({followBtnLoading:false, followBtnText:'Following', items:this.userToItems(targetUser)})
-        }).catch((error) => {
-            console.log(error);
-        });
+    follow = async (data)=>{
+        let res = await reqFollow(data)
+        const {targetUser} = res.data
+        this.setState({followBtnLoading:false, followBtnText:'Following', items:this.userToItems(targetUser)})
+        // axios.put('/api/follow', data).then((response) => {
+        //     console.log('follow data = ', response.data);
+        //     const {targetUser} = response.data
+        //     this.setState({followBtnLoading:false, followBtnText:'Following', items:this.userToItems(targetUser)})
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
     }
 
-    unFollow = (data)=>{
+    unFollow = async (data)=>{
         console.log('unFollow')
-        axios.put('/api/unfollow', data).then((response) => {
-            console.log('unFollow data = ', response.data);
-            const {targetUser} = response.data
-            this.setState({followBtnLoading:false, followBtnText:'Follow', items:this.userToItems(targetUser)})
-        }).catch((error) => {
-            console.log(error);
-        });
+        let res = await reqUnFollow(data)
+        const {targetUser} = res.data
+        this.setState({followBtnLoading:false, followBtnText:'Follow', items:this.userToItems(targetUser)})
+        // axios.put('/api/unfollow', data).then((response) => {
+        //     console.log('unFollow data = ', response.data);
+        //     const {targetUser} = response.data
+        //     this.setState({followBtnLoading:false, followBtnText:'Follow', items:this.userToItems(targetUser)})
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
     }
 
     userToItems = (userInfo)=>{
@@ -63,15 +69,18 @@ class SideUserInfoContainer extends Component{
         return items
     }
 
-    getUser = ()=>{
+    getUser = async ()=>{
         const data = {actionUsername:this.props.userInfo.username, targetUsername:this.props.curUsername}
-        axios.get('/api/user', {params:data}).then((response) => {
-            console.log('/api/user', response.data)
-            const items = this.userToItems(response.data)
-            this.setState({items, followBtnText: response.data.followed ? 'Following' : 'Follow'})
-        }).catch((error) => {
-            console.log(error);
-        });
+        let res = await reqUser(data)
+        const items = this.userToItems(res.data)
+        this.setState({items, followBtnText: res.data.followed ? 'Following' : 'Follow'})
+        // axios.get('/api/user', {params:data}).then((response) => {
+        //     console.log('/api/user', response.data)
+        //     const items = this.userToItems(response.data)
+        //     this.setState({items, followBtnText: response.data.followed ? 'Following' : 'Follow'})
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
     }
 
     

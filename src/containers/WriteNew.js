@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Redirect} from "react-router-dom";
 import { connect } from 'react-redux'
-import axios from 'axios';
 import Write from '../component/Write'
+import {reqPostArticle} from '../api'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 class WriteNew extends Component{
 
-    state = {id:'', redir:{isRedir:false, redirectTo:''}, isDoneLoading:false}
+    state = {redir:{isRedir:false, redirectTo:''}, isDoneLoading:false}
 
     onPublish = (write_state) => {
         let articleInfo = {...write_state, owner:this.props.userInfo.username, writeTime:Number(new Date().valueOf())}
@@ -32,30 +32,30 @@ class WriteNew extends Component{
         }
     }
 
-    publishNew = (articleInfo) => {
-        axios.post('/api/article', articleInfo).then((response) => {
-            console.log('add then data = ', response.data);
-            this.articleData = {_id:response.data.insertedId, ...articleInfo}
-            this.setState({redir:{isRedir:true, redirectTo:<Redirect to={{
-                    pathname:`/user/${this.props.userInfo.username}/article/${this.state.id}`, 
-                    articleData:this.articleData
-                }}/>}, id:response.data.insertedId})
-        }).catch((error) => {
-            console.log(error);
-        });
+    publishNew = async (articleInfo) => {
+        delete articleInfo._id
+        let res = await reqPostArticle(articleInfo)
+        console.log('publishNew', res)
+        this.setState({
+            redir:{
+                isRedir:true, 
+                redirectTo:<Redirect to={{
+                pathname:`/user/${this.props.userInfo.username}/article/${res.data._id}`, 
+                articleData:res.data}}/>
+            }
+        })
     }
 
     render(){
         let {redir} = this.state
         if (redir.isRedir) return redir.redirectTo;
-        let {title, text_origin, text_md} = this.props
+        console.log(this.props)
+        let {articleData} = this.props.location
         return(
             <Write 
                 onPublish={this.onPublish} 
                 onCancel={this.onCancel}
-                title={title} 
-                text_origin={text_origin} 
-                text_md={text_md} 
+                articleData={articleData}
                 isDoneLoading={this.state.isDoneLoading}
             />
         );

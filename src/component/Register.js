@@ -13,7 +13,6 @@ import {
 	// AutoComplete,
 } from 'antd';
 import md5 from 'md5'
-import axios from 'axios';
 
 // const { Option } = Select;
 // const AutoCompleteOption = AutoComplete.Option;
@@ -105,27 +104,28 @@ class Register extends Component {
 	};
 
 	checkEmail = e => {
-		this.checkExist('email', {'email': e.target.value}, 'email is existed')
+		this.checkExist('email', { 'email': e.target.value }, 'email is existed')
 	};
 
 	checkUsername = e => {
-		this.checkExist('username', {'username': e.target.value}, 'username is existed')
+		this.checkExist('username', { 'username': e.target.value }, 'username is existed')
 	}
 
-	checkExist = (field, json, errorMsg) => {
+	checkExist = async (field, json, errorMsg) => {
 		console.log('checkExist', field, json)
-		axios.get(`/api/checkExist?data=${JSON.stringify(json)}`).then((response) => {
-			console.log('checkExist getDate = ', response.data);
-			if (response.data){
-				const { form } = this.props;
-				if (form) {
-					console.log('form is not null')
-					form.setFields({ [field]: { value: Object.values(json)[0], errors: [new Error(errorMsg)] } })
-				}
+		let res = await this.props.checkExist(json)
+		console.log(res)
+		if (res.status !== 0) {
+			const { form } = this.props;
+			if (form) {
+				console.log('form is not null')
+				form.setFields({ [field]: { value: Object.values(json)[0], errors: [new Error(errorMsg)] } })
 			}
-		}).catch((error) => {
-			console.log(error);
-		});
+		}
+	}
+
+	componentDidMount(){
+		this.props.setForm(this.props.form)
 	}
 
 	render() {
@@ -184,12 +184,12 @@ class Register extends Component {
 				<Form.Item label='Username' hasFeedback>
 					{getFieldDecorator('username', {
 						rules: [
-							{ 
-								required: true, message: 'Please input your username!', 
-								whitespace: true 
+							{
+								required: true, message: 'Please input your username!',
+								whitespace: true
 							}
 						],
-					})(<Input onBlur={this.checkUsername}/>)}
+					})(<Input onBlur={this.checkUsername} />)}
 				</Form.Item>
 				<Form.Item label="Password" hasFeedback>
 					{getFieldDecorator('password', {
@@ -217,7 +217,7 @@ class Register extends Component {
 						],
 					})(<Input.Password onBlur={this.handleConfirmBlur} />)}
 				</Form.Item>
-				
+
 				{/* <Form.Item label="Habitual Residence">
                 {getFieldDecorator('residence', {
                   initialValue: ['zhejiang', 'hangzhou', 'xihu'],
@@ -275,6 +275,6 @@ class Register extends Component {
 	}
 }
 
-const WrappedRegistrationForm = Form.create({ name: 'register'})(Register);
+const WrappedRegistrationForm = Form.create({ name: 'register' })(Register);
 
 export default WrappedRegistrationForm

@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../containers/LoginContainer';
-import Home from './Home';
+// import Home from './Home';
 import Register from '../containers/RegisterContainer'
 import JoinUs from './JoinUs';
-import axios from 'axios';
-import { connect } from 'react-redux'
-import { updateUserInfo } from '../actions'
 import './css/App.css';
 import { Redirect } from 'react-router-dom';
 import TopBar from '../containers/TopBarContainer';
 import Profile from '../containers/ProfileContainer'
 import Message from './Message'
+import {reqSession} from '../api'
 // import Article from '../containers/ArticleContainer';
-
-const mapStateToProps = (state, ownProps) => ({
-	userInfo: state.userInfo,
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	setUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo)),
-})
+import {userInfoWrapper} from '../redux/Wrapper'
+import ArticleList from '../containers/ArticleListContainer'
+import WriteNew from '../containers/WriteNew';
+import Article from '../containers/ArticleContainer';
+import WriteEdit from '../containers/WriteEdit'
 
 const PrivateRoute = ({ component: Component, validation, ...rest }) => {
 	console.log('PrivateRoute', validation)
@@ -46,18 +41,12 @@ class App extends Component {
 
 	// state = {redir:false}
 
-	componentDidMount() {
-		axios.get('/session').then((response) => {
-			if (response && response.data) {
-				console.log('11111111111 set user info')
-				this.props.setUserInfo(response.data)
-				// this.setState({redir:true})
-			}
-		}).catch((error) => {
-			console.log(error)
-		})
+	async componentDidMount() {
+		let res = await reqSession()
+		if (res.status===0){
+			this.props.updateUserInfo(res.data)
+		}
 	}
-
 
 	render() {
 		const { location, userInfo } = this.props;
@@ -67,9 +56,6 @@ class App extends Component {
 			return <Redirect to={pathname.slice(0, pathname.length - 1)} />
 		}
 
-		// if (!this.props.userInfo.username) {
-		// 	return <Redirect to={pathname.slice(0, pathname.length-1)}/>
-		// }
 		console.log('this.redir ', location)
 		if (userInfo && userInfo.username && location.redirData && location.redirData.from){
 			console.log('qqqqqqqqqqqqqq')
@@ -81,11 +67,14 @@ class App extends Component {
 				<TopBar />
 				<Switch >
 					<Route exact path='/' component={JoinUs} />
-					<Route path='/user/:username/timeline' component={Home} />
+					{/* <Route path='/user/:username/timeline' component={Home} /> */}
 					<Route path='/user/:username/profile' component={Profile} />
 					<Route path='/user/:username/message' component={Message} />
 					{/* <Route path={`/user/:username/article/:id`} component={Article} /> */}
-					<PrivateRoute path='/user/:username' validation={this.props.userInfo.username} component={Home} />
+					<Route path={`/user/:username/write`} component={WriteNew} />
+					<Route path={`/user/:username/edit`} component={WriteEdit} />
+					<Route path={`/user/:username/article/:id`} component={Article} />
+					<PrivateRoute path='/user/:username' validation={this.props.userInfo.username} component={ArticleList} />
 					<Route path='/login' component={Login} />
 					<Route path='/register' component={Register} />
 				</Switch>
@@ -94,4 +83,4 @@ class App extends Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default userInfoWrapper(App);

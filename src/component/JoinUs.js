@@ -1,32 +1,16 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {updateUserInfo} from '../actions'
 import {Redirect} from "react-router-dom";
 import {Link} from 'react-router-dom';
 import './css/JoinUs.css'
 import { Button } from 'antd';
 
-const mapStateToProps = (state, ownProps) => ({
-    userInfo: state.userInfo
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    setUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo))
-})
+import {userInfoWrapper} from '../redux/Wrapper'
 
 class JoinUs extends Component{
 
-    onLogin(){
-        console.log('onlogin')
-
-    }
-
-    onRegister(){
-
-    }
     render(){
         console.log('Join us render')
-        let {userInfo, location} = this.props;
+        let {userInfo} = this.props;
         if (userInfo && userInfo.username) return <Redirect to={`/user/${userInfo.username}`}/>
         console.log('Join us render 2')
 
@@ -40,4 +24,4 @@ class JoinUs extends Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(JoinUs);
+export default userInfoWrapper(JoinUs)

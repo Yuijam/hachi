@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import WriteNew from './WriteNew'
 import {Redirect} from "react-router-dom";
-import axios from 'axios';
 import { connect } from 'react-redux'
+import {reqEditArticle} from '../api'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo
@@ -10,34 +10,29 @@ const mapStateToProps = (state, ownProps) => ({
 
 class WriteEdit extends Component{
 
-    state = {redir:false}
+    state = {redir:{isRedir:false, redirectTo:''}}
 
-    onPublish = (write_state) => {
-        let {_id} = this.props.location.state
-        axios.put(`/api/article/${_id}`, write_state).then((response) => {
-            // console.log('add then data = ', response.data);
-            this.articleData = {_id:_id, ...write_state, lastEditTime:Number(new Date().valueOf())}
-            this.setState({redir:true})
-        }).catch((error) => {
-            console.log(error);
-        });
+    onPublish = async (writeState) => {
+        let res = await reqEditArticle(writeState)
+        const articleData = res.data
+        this.setState({
+            redir:{
+                isRedir:true, 
+                redirectTo:<Redirect to={{
+                pathname:`/user/${articleData.owner}/article/${articleData._id}`, 
+                articleData}}/>
+            }
+        })
     }
 
     render(){
         let {redir} = this.state
-        if (redir) return <Redirect to={
-            {pathname:`/user/${this.props.userInfo.username}/article/${this.props.location.state._id}`, 
-            articleData:this.articleData}
-        }/>;
-        let {title, text_origin, text_md} = this.props.location.state
+        if (redir.isRedir) return redir.redirectTo
 
         return(
             <WriteNew 
                 {...this.props}
                 onPublish={this.onPublish} 
-                title={title} 
-                text_origin={text_origin} 
-                text_md={text_md} 
             />
         );
     }

@@ -1,50 +1,25 @@
-import Login from '../component/Login'
+import Login from '../component/Login.jsx'
 import { connect } from 'react-redux'
-import {updateUserInfo} from '../actions'
+import {login} from '../redux/Actions.js'
 import React, { Component } from 'react'
-import axios from 'axios';
 import {Redirect} from 'react-router-dom';
-import { message } from 'antd';
-
-const mapStateToProps = (state, ownProps) => ({
-    userInfo: state.userInfo
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    setUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo))
-})
 
 class LoginContainer extends Component{
 
-    state = {loading:false, username:''}
+    state = {loading:false}
 
-    onLogin = (values)=>{
+    onLogin = async (values)=>{
         console.log('LoginContainer  onLogin')
         this.setState({loading:true})
 
-        axios.post('/api/login', values).then((response) => {
-            console.log('login data = ', response.data);
-            if (response.data) {
-                console.log('log sucess')
-                this.props.setUserInfo(response.data)
-                this.setState({loading:false, username:response.data.username})
-                // this.history.goBack();
-                message.success('Login Successed!')
-            } else {
-                this.setState({loading:false})
-                console.log('login fail')
-                message.error('Login Failed!');
-            }
-        }).catch((error) => {
-            this.setState({loading:false})
-            console.log(error);
-            message.error('Login Failed!');
-        });
+        this.props.login(values.username, values.password)
     }
 
     render(){
-        if (this.state.username) {
-            return <Redirect to={`/user/${this.state.username}/`}/>
+        console.log("this.props.userInfo = ", this.props.userInfo)
+        const {userInfo} = this.props
+        if (userInfo && userInfo.username) {
+            return <Redirect to={`/user/${userInfo.username}/`}/>
         }
 
         return (
@@ -53,4 +28,4 @@ class LoginContainer extends Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+export default connect(state => ({userInfo: state.userInfo}), {login})(LoginContainer)

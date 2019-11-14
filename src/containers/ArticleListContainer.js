@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-// import ArticleList from '../component/ArticleList'
-import ArticleList from '../component/ArticleListNew'
-import axios from 'axios';
-import Page from '../containers/PageContainer'
+import ArticleList from '../component/ArticleList'
 import {connect} from 'react-redux'
 import SideUserInfo from './SideUserInfoContainer'
+import {reqArticles} from '../api'
+import {PAGE_SIZE} from '../const'
 
 const mapStateToProps = (state, ownProps) => ({
 	curPage: state.curPage
@@ -12,49 +11,26 @@ const mapStateToProps = (state, ownProps) => ({
 
 class ArticleListContainer extends Component{
 
-    state = {username:'', article_list:[]}
-
-    _isMounted = false;
-
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
+    state = {username:'', articles:[], total:0}
 
     componentDidMount(){
-        this._isMounted = true;
-        let username = this.parseUsername(this.props)
-        if (!username || username === 'undefined') {
-            return true
-        };
-
-        this.getData(username, this.props.curPage);
+        const {username} = this.props.match.params
+        this.getData(username);
     }
 
-    getData = (username, curPage = 1)=>{
+    getData = async (username, pageIdx = 1)=>{
         if (this.props && this.props.getData){
-            this.props.getData(username, curPage = 1)
+            this.props.getData(username, pageIdx = 1)
         }else{
-            // axios.get(`/api/article_list?username=${username}`).then((response) => {
-            axios.get(`/api/page/`, {params:{username, curPage}}).then((response) => {
-                if (this._isMounted){
-                    this.setState({username:username, article_list:response.data});
-                }
-            }).catch((error) => {
-                console.log(error);
-            });
+            let res = await reqArticles(username, pageIdx, PAGE_SIZE)
+            this.setState({username:username, articles:res.data.articles, total:res.data.total});
         }
     }
 
-    parseUsername(props){
-        let {username} = props.match.params
-        return username
-    }
-
-    componentWillReceiveProps(nextProps){
-        let username = this.parseUsername(nextProps)
-        if (this.state.username === username || !username || username==='undefined') return false;
-        this.getData(username, this.props.curPage);
-        return true
+    onPageChange = (pageIdx) => {
+        console.log('onPageChange ', pageIdx)
+        const {username} = this.props.match.params
+        this.getData(username, pageIdx)
     }
 
     render(){
@@ -62,8 +38,12 @@ class ArticleListContainer extends Component{
         return(
             <div>
                 <SideUserInfo curUsername={username} />
-                <ArticleList article_list={this.state.article_list} username = {username}/>
-				<Page username = {username}/>
+                <ArticleList 
+                    articles={this.state.articles} 
+                    onPageChange={this.onPageChange}  
+                    pageSize={PAGE_SIZE} 
+                    total={this.state.total}
+                />
             </div>
         )
     }

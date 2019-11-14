@@ -5,4 +5,9 @@
 .article-list-body{
     max-width: 500px;
     margin: auto;
+    margin-bottom: 55px;
+}
+
+.ant-list-pagination{
+    text-align: center;
 }

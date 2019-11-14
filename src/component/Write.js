@@ -4,7 +4,6 @@ import marked from 'marked';
 import hljs from 'highlight.js';
 // import 'highlight.js/styles/atom-one-dark.css';
 import 'highlight.js/styles/github.css';
-import PropTypes from 'prop-types'
 // import 'highlight.js/styles/monokai-sublime.css';
 import { Button, Divider } from 'antd';
 import ReactMarkdown from 'react-markdown'
@@ -23,24 +22,14 @@ class Write extends Component{
         this.inputTextarea = React.createRef();
     }
 
-    static propTypes = {
-        title: PropTypes.string,
-        onPublish: PropTypes.func,
-        text_origin: PropTypes.string,
-        text_md: PropTypes.string
-    }
-    
-    static defaultProps = {
-        title: '',
-        text_origin: '',
-        text_md: ''
-    }
+    state = {_id:'', title:'', text_md:'', text_origin:''}
 
-    state = {title:'', text_md:'', text_origin:''}
-
-    componentWillMount(){
-        let {title, text_origin, text_md} = this.props
-        this.setState({title, text_origin, text_md})
+    componentDidMount(){
+        console.log('this.props.articleData', this.props.articleData)
+        if (this.props.articleData) {
+            let {_id= '', title='', text_origin='', text_md=''} = this.props.articleData
+            this.setState({title, text_origin, text_md, _id})
+        }
     }
 
     onTextChange = (event)=>{
@@ -116,8 +105,8 @@ class Write extends Component{
         return(
             <div className='write-body'>
                 <div className='tool-bar'>
-                    <Button onClick={this.onCancel}>Cancel</Button>
-                    <Button onClick={this.onPublish} loading={this.props.isDoneLoading}>Done</Button>
+                    <Button onClick={this.onCancel} icon='close'>Cancel</Button>
+                    <Button onClick={this.onPublish} icon='check' loading={this.props.isDoneLoading}>Done</Button>
                 </div>
 
                 <div className='text-area'>

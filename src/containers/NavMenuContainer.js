@@ -1,29 +1,24 @@
 import React, { Component } from 'react'
 import NavMenu from '../component/NavMenu'
-import { connect } from 'react-redux'
-// import { Avatar } from 'antd';
-import {updateUserInfo} from '../actions'
-import axios from 'axios';
-
-const mapStateToProps = (state, ownProps) => ({
-    userInfo: state.userInfo,
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    clearUserInfo: () => dispatch(updateUserInfo({})),
-})
+import {reqLogout} from '../api'
+import {userInfoWrapper} from '../redux/Wrapper'
+import PropTypes from 'prop-types'
 
 class NavMenuContainer extends Component{
 
+    static propTypes = {
+        userInfo: PropTypes.object,
+        updateUserInfo: PropTypes.func
+    }
+
     onLogout = ()=>{
-        axios.get('/api/logout').then((response) => {
-            this.props.clearUserInfo()
-        }).catch((err) => console.log(err))
+        this.props.updateUserInfo({})
+        reqLogout()
     }
 
     render(){
         const menuItems = [
-            {key:'home', text:'Home', url:`/user/${this.props.userInfo.username}/`},
+            {key:'home', text:'Home', icon:'home', url:`/user/${this.props.userInfo.username}/`},
             {key:'timeline', text:'Timeline', url:`/user/${this.props.userInfo.username}/timeline`},
             {key:'message', text:'Message',  url:`/user/${this.props.userInfo.username}/message`},
             {key:'write', text:'Write', url:`/user/${this.props.userInfo.username}/write`},
@@ -41,7 +36,6 @@ class NavMenuContainer extends Component{
             {key:'login', text:'Login', url:`/login`}
         ]
         let items = this.props.userInfo && this.props.userInfo.username ? menuItems : unregisterItems
-
         return (
             <div>
                 <NavMenu items={items}/>
@@ -50,4 +44,5 @@ class NavMenuContainer extends Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenuContainer)
+// export default connect(state=>({userInfo:state.userInfo}), {updateUserInfo})(NavMenuContainer)
+export default userInfoWrapper(NavMenuContainer)
