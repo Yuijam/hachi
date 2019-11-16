@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import ArticleList from '../component/ArticleList'
-import {connect} from 'react-redux'
 import SideUserInfo from './SideUserInfoContainer'
 import {reqArticles} from '../api'
 import {PAGE_SIZE} from '../const'
-
-const mapStateToProps = (state, ownProps) => ({
-	curPage: state.curPage
-})
 
 class ArticleListContainer extends Component{
 
@@ -20,7 +15,8 @@ class ArticleListContainer extends Component{
 
     getData = async (username, pageIdx = 1)=>{
         if (this.props && this.props.getData){
-            this.props.getData(username, pageIdx = 1)
+            let res = this.props.getData(username, pageIdx = 1)
+            this.setState({username:username, articles:res.data.articles, total:res.data.total});
         }else{
             let res = await reqArticles(username, pageIdx, PAGE_SIZE)
             this.setState({username:username, articles:res.data.articles, total:res.data.total});
@@ -49,4 +45,4 @@ class ArticleListContainer extends Component{
     }
 }
 
-export default connect(mapStateToProps)(ArticleListContainer)
+export default ArticleListContainer

@@ -16,6 +16,7 @@ import ArticleList from '../containers/ArticleListContainer'
 import WriteNew from '../containers/WriteNew';
 import Article from '../containers/ArticleContainer';
 import WriteEdit from '../containers/WriteEdit'
+import Timeline from '../containers/TimelineContainer'
 
 const PrivateRoute = ({ component: Component, validation, ...rest }) => {
 	console.log('PrivateRoute', validation)
@@ -67,7 +68,7 @@ class App extends Component {
 				<TopBar />
 				<Switch >
 					<Route exact path='/' component={JoinUs} />
-					{/* <Route path='/user/:username/timeline' component={Home} /> */}
+					<Route path='/user/:username/timeline' component={Timeline} />
 					<Route path='/user/:username/profile' component={Profile} />
 					<Route path='/user/:username/message' component={Message} />
 					{/* <Route path={`/user/:username/article/:id`} component={Article} /> */}

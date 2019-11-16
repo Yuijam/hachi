@@ -45,7 +45,7 @@ class ArticleList extends Component {
             ]}
           >
             <List.Item.Meta
-              avatar={<Avatar src={item.avatar || 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'} />}
+              avatar={<Avatar src={item.avatar} icon={item.avatar ? null : 'user'}/>}
               // title={<Link href={item.href}>{item.title}</a>}
               title={<Link to={{ pathname: `/user/${item.owner}/article/${item._id}`, articleData: item }}>{item.title}</Link>}
             // description={item.text_origin}

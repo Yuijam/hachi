@@ -3,21 +3,18 @@ import SideUserInfo from '../component/SideUserInfo'
 import {reqFollow, reqUnFollow, reqUser} from '../api'
 import {userInfoWrapper} from '../redux/Wrapper'
 
-const mapStateToProps = (state, ownProps) => ({
-    userInfo: state.userInfo,
-})
-
 class SideUserInfoContainer extends Component{
 
     state = {
         followBtnLoading:false, 
         items:[
             {label:'Username', text:'xxx'},
+            {label:'Articles', text:'xxx'},
             {label:'Followers', text:'xxx'},
-            {label:'Following', text:'xxx'},
-            {label:'Articles', text:'xxx'}
+            {label:'Following', text:'xxx'}
         ],
         followBtnText:'Follow',
+        curUser:{}
     }
 
     onClickFollow = ()=>{
@@ -48,9 +45,9 @@ class SideUserInfoContainer extends Component{
         console.log('userToItems userInfo', userInfo)
         const items = [
             {label:'Username', text:userInfo.username},
+            {label:'Articles', text:userInfo.articleCount},
             {label:'Followers', text:userInfo.followers.length},
-            {label:'Following', text:userInfo.following.length},
-            {label:'Articles', text:userInfo.articleCount}
+            {label:'Following', text:userInfo.following.length}
         ]
         return items
     }
@@ -59,7 +56,7 @@ class SideUserInfoContainer extends Component{
         const data = {actionUsername:this.props.userInfo.username, targetUsername:this.props.curUsername}
         let res = await reqUser(data)
         const items = this.userToItems(res.data)
-        this.setState({items, followBtnText: res.data.followed ? 'Following' : 'Follow'})
+        this.setState({items, followBtnText: res.data.followed ? 'Following' : 'Follow', curUser:res.data})
     }
 
     
@@ -80,7 +77,7 @@ class SideUserInfoContainer extends Component{
                 followBtnLoading={this.state.followBtnLoading}
                 items={this.state.items}
                 followBtnText={this.state.followBtnText}
-                avatar={this.props.userInfo.avatar}
+                avatar={this.state.curUser.avatar}
             /> :
             <div></div>
         )
