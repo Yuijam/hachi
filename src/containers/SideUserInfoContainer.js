@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SideUserInfo from '../component/SideUserInfo'
-import {connect} from 'react-redux'
 import {reqFollow, reqUnFollow, reqUser} from '../api'
+import {userInfoWrapper} from '../redux/Wrapper'
 
 const mapStateToProps = (state, ownProps) => ({
     userInfo: state.userInfo,
@@ -35,13 +35,6 @@ class SideUserInfoContainer extends Component{
         let res = await reqFollow(data)
         const {targetUser} = res.data
         this.setState({followBtnLoading:false, followBtnText:'Following', items:this.userToItems(targetUser)})
-        // axios.put('/api/follow', data).then((response) => {
-        //     console.log('follow data = ', response.data);
-        //     const {targetUser} = response.data
-        //     this.setState({followBtnLoading:false, followBtnText:'Following', items:this.userToItems(targetUser)})
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
     }
 
     unFollow = async (data)=>{
@@ -49,13 +42,6 @@ class SideUserInfoContainer extends Component{
         let res = await reqUnFollow(data)
         const {targetUser} = res.data
         this.setState({followBtnLoading:false, followBtnText:'Follow', items:this.userToItems(targetUser)})
-        // axios.put('/api/unfollow', data).then((response) => {
-        //     console.log('unFollow data = ', response.data);
-        //     const {targetUser} = response.data
-        //     this.setState({followBtnLoading:false, followBtnText:'Follow', items:this.userToItems(targetUser)})
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
     }
 
     userToItems = (userInfo)=>{
@@ -74,13 +60,6 @@ class SideUserInfoContainer extends Component{
         let res = await reqUser(data)
         const items = this.userToItems(res.data)
         this.setState({items, followBtnText: res.data.followed ? 'Following' : 'Follow'})
-        // axios.get('/api/user', {params:data}).then((response) => {
-        //     console.log('/api/user', response.data)
-        //     const items = this.userToItems(response.data)
-        //     this.setState({items, followBtnText: response.data.followed ? 'Following' : 'Follow'})
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
     }
 
     
@@ -93,7 +72,6 @@ class SideUserInfoContainer extends Component{
         const {curUsername} = this.props
         const isSelf = curUsername === this.props.userInfo.username
         console.log('render', this.props.userInfo.username)
-        // if (!this.props.userInfo.username) return <div></div>
         return (
             this.props.userInfo.username ?
             <SideUserInfo 
@@ -102,10 +80,11 @@ class SideUserInfoContainer extends Component{
                 followBtnLoading={this.state.followBtnLoading}
                 items={this.state.items}
                 followBtnText={this.state.followBtnText}
+                avatar={this.props.userInfo.avatar}
             /> :
             <div></div>
         )
     }
 }
 
-export default connect(mapStateToProps)(SideUserInfoContainer)
+export default userInfoWrapper(SideUserInfoContainer)

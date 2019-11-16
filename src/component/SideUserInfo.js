@@ -8,11 +8,11 @@ class SideUserInfo extends Component{
     }
     
     render(){
-        const {isSelf, onFollow, followBtnLoading, items, followBtnText} = this.props
+        const {isSelf, onFollow, followBtnLoading, items, followBtnText, avatar} = this.props
         return(
             <div className='side-user-info-body'>
                 <div className='avatar-area'>
-                    <Avatar size={70} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
+                    <Avatar size={70} src={avatar} icon={avatar ? null : "user"}/>
                     {isSelf ? null : <Button className='side-user-info-follow' onClick={onFollow} loading={followBtnLoading}>{followBtnText}</Button>}
                 </div>
                 <Descriptions className='desc' title="" column={2} layout='vertical' size='small'>
