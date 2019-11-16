@@ -18,3 +18,4 @@ export const reqUnFollow = (data) => ajax('/api/unfollow', data, 'PUT')
 export const reqUser = (data) => ajax('/api/user', data, 'GET')
 
 export const reqTimeline = (username, pageIdx, pageSize) => ajax('/api/timeline', {username, pageIdx, pageSize}, 'GET')
+export const reqUpdateUser = (user) => ajax('/api/user', user, 'PUT')

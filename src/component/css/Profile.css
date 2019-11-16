@@ -3,11 +3,11 @@
     margin: 0 auto;
 }
 
-.profile-body .avatar-body{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+.profile-body .edit-profile-button, .follow-button{
+    float: right;
 }
+
+
 /* .profile-body .follow-button{
     margin-right: 0;
 } */
