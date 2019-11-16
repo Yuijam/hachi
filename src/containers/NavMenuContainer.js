@@ -20,7 +20,7 @@ class NavMenuContainer extends Component{
         const menuItems = [
             {key:'home', text:'Home', icon:'home', url:`/user/${this.props.userInfo.username}/`},
             {key:'timeline', text:'Timeline', url:`/user/${this.props.userInfo.username}/timeline`},
-            {key:'message', text:'Message',  url:`/user/${this.props.userInfo.username}/message`},
+            // {key:'message', text:'Message',  url:`/user/${this.props.userInfo.username}/message`},
             {key:'write', text:'Write', url:`/user/${this.props.userInfo.username}/write`},
             {key:'avatar', text:`${this.props.userInfo.username}`,
                 child:[

@@ -13,6 +13,7 @@ class LoginContainer extends Component{
         this.setState({loading:true})
 
         this.props.login(values.username, values.password)
+        this.setState({loading:false})
     }
 
     render(){

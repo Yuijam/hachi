@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { List, Avatar, Icon } from 'antd';
+import { List, Avatar, Icon, Typography  } from 'antd';
 import './css/ArticleList.css'
 import { Link } from 'react-router-dom';
-
+const { Paragraph } = Typography;
 const IconText = ({ type, text }) => (
   <span>
     <Icon type={type} style={{ marginRight: 8 }} />
@@ -50,7 +50,8 @@ class ArticleList extends Component {
               title={<Link to={{ pathname: `/user/${item.owner}/article/${item._id}`, articleData: item }}>{item.title}</Link>}
             // description={item.text_origin}
             />
-            {item.text_origin}
+            <Paragraph ellipsis={{ rows: 6}}>{item.text_origin}</Paragraph>
+            
           </List.Item>
         )}
       />
