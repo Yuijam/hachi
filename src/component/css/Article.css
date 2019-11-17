@@ -17,6 +17,10 @@
     text-align: right;
 }
 
+.article-body .write-time{
+    text-align: right;
+}
+
 /* .article-body .text_md ul{
     line-height: 1em;
 } */
