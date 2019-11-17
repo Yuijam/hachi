@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
 import Article from '../component/Article'
-// import Write from '../component/Write';
-import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
-import { reqDeleteArticle, reqArticle } from '../api'
-
-const mapStateToProps = (state, ownProps) => ({
-  userInfo: state.userInfo
-})
+import {userInfoWrapper} from '../redux/Wrapper'
+import { reqDeleteArticle, reqArticle, reqAddComment, reqGetComments } from '../api'
+import moment from 'moment'
 
 class ArticleContainer extends Component {
 
   state = {
     del: false,
     redir: false, 
-    articleData: {}
+    articleData: {},
+    comments: [],
+    submitting: false
   }
 
   onDelete = async (e) => {
@@ -32,11 +29,48 @@ class ArticleContainer extends Component {
       let {id} = this.props.match.params
       this.getArticle(id)
     }
+    this.getComments()
   }
 
   getArticle = async (id) => {
     let res = await reqArticle(id)
     this.setState({articleData:res.data})
+  }
+
+  getComments = async () => {
+    const article_id = this.props.match.params.id
+    console.log('getComments', article_id)
+    let comments = await reqGetComments({article_id})
+    comments = comments.data.map(c => {
+      return {...c, datetime:moment(c.datetime).fromNow()}
+    })
+    this.setState({comments})
+  }
+
+  handleSubmit = async (value) => {
+    
+    this.setState({submitting: true});
+
+    // var commentSchema = new Schema({
+    //   username:String,
+    //   text:String,
+    //   avatar:String,
+    //   commentTime:Number,
+    //   article_id:String,
+    // })
+    const {userInfo} = this.props
+    let comment = {
+      author:userInfo.username, 
+      content:value, 
+      avatar:userInfo.avatar, 
+      datetime:Number(new Date().valueOf()),
+      article_id:this.props.match.params.id
+    }
+    let res = await reqAddComment(comment)
+    this.setState({submitting:false})
+    if (res.status === 0){
+      this.getComments()
+    }
   }
 
   render() {
@@ -63,9 +97,13 @@ class ArticleContainer extends Component {
         onDelete={this.onDelete}
         isOwner={isOwner}
         toEditUrl={`/user/${username}/edit`}
+        comments={this.state.comments}
+        submitting={this.state.submitting}
+        handleSubmit={this.handleSubmit}
+        commentAvatar={this.props.userInfo.avatar}
       />
     )
   }
 }
 
-export default connect(mapStateToProps)(ArticleContainer)
+export default userInfoWrapper(ArticleContainer)

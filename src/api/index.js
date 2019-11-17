@@ -19,3 +19,6 @@ export const reqUser = (data) => ajax('/api/user', data, 'GET')
 
 export const reqTimeline = (username, pageIdx, pageSize) => ajax('/api/timeline', {username, pageIdx, pageSize}, 'GET')
 export const reqUpdateUser = (user) => ajax('/api/user', user, 'PUT')
+
+export const reqAddComment = (comment) => ajax('/api/comment', comment, 'POST')
+export const reqGetComments = (articleId) => ajax('/api/comment', articleId, 'GET')
