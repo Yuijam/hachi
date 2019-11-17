@@ -19,13 +19,13 @@ class NavMenuContainer extends Component{
     render(){
         const menuItems = [
             {key:'home', text:'Home', icon:'home', url:`/user/${this.props.userInfo.username}/`},
-            {key:'timeline', text:'Timeline', url:`/user/${this.props.userInfo.username}/timeline`},
+            {key:'timeline', text:'Timeline', icon:'history', url:`/user/${this.props.userInfo.username}/timeline`},
             // {key:'message', text:'Message',  url:`/user/${this.props.userInfo.username}/message`},
-            {key:'write', text:'Write', url:`/user/${this.props.userInfo.username}/write`},
-            {key:'avatar', text:`${this.props.userInfo.username}`,
+            {key:'write', text:'Write', icon:'edit', url:`/user/${this.props.userInfo.username}/write`},
+            {key:'avatar', icon:'user', text:`${this.props.userInfo.username}`,
                 child:[
-                    {key:'profile', text:'Profile', url:`/user/${this.props.userInfo.username}/profile`},
-                    {key:'logout', text:'Logout', onClick:this.onLogout}
+                    {key:'profile', icon:'profile', text:'Profile', url:`/user/${this.props.userInfo.username}/profile`},
+                    {key:'logout', icon: 'logout', text:'Logout', onClick:this.onLogout}
                 ],
                 
             },

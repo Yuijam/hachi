@@ -16,7 +16,7 @@ class JoinUs extends Component{
 
         return (
             <div className='joinus-body'>
-                <h1>Join Us?</h1>
+                <h1 className='title'>Join Us?</h1>
                 <Link to={{pathname:'/login', state:{isFloatPage:true}}}><Button >Login</Button></Link>
                 <Link to={{pathname:'/register', state:{isFloatPage:true}}}><Button >Register</Button></Link>
             </div>

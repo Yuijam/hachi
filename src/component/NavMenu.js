@@ -19,7 +19,7 @@ class NavMenu extends Component {
     createItemsUi = (item) => {
         if (item.child){
             return (
-                <SubMenu title={item.text} key={item.key} >
+                <SubMenu title={<span><Icon type={item.icon} /> {item.text}</span>} key={item.key}>
                     {item.child.map(this.createItemsUi)}
                 </SubMenu>
             )

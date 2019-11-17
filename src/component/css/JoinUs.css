@@ -1,3 +1,7 @@
 .joinus-body{
     text-align: center;
 }
+
+.joinus-body .title{
+    font-size: 4em;
+}

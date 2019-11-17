@@ -1,10 +1,14 @@
 .side-user-info-body{
-    max-width: 200px;
+    max-width: 300px;
     float: right;
-    margin-right: 10%;
+    margin-right: 5%;
 }
 
 .side-user-info-body .avatar-area{
     padding: 5%;
     padding-left: 0%;
+}
+
+.side-user-info-body .avatar-area .side-user-info-follow{
+    margin-left: 10%;
 }
