@@ -141,6 +141,7 @@ class ProfileContainer extends Component {
     let { username: curUser } = match.params
     let isSelf = curUser === userInfo.username
     this.curUser = curUser
+    console.log('ProfileContainer render userInfo.username', userInfo.username)
     if (!userInfo.username) return <div></div>
 
     return (

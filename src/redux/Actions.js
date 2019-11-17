@@ -1,19 +1,16 @@
 import {
   UPDATE_USER_INFO,
-  UPDATE_PAGE
 } from './ActionTypes'
 import { reqLogin } from '../api'
 import { message } from 'antd'
 
-export const updateUserInfo = userInfo => ({
-  type: UPDATE_USER_INFO,
-  userInfo
-})
-
-export const updatePage = curPage => ({
-  type: UPDATE_PAGE,
-  curPage
-})
+export const updateUserInfo = userInfo => {
+  console.log('!!!!!!!!!UPdat', userInfo, console.trace())
+  return {
+    type: UPDATE_USER_INFO,
+    userInfo
+  }
+}
 
 export const login = (username, password) => {
   return async dispatch => {
