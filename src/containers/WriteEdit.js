@@ -13,6 +13,7 @@ class WriteEdit extends Component{
     state = {redir:{isRedir:false, redirectTo:''}}
 
     onPublish = async (writeState) => {
+        writeState.lastEditTime = Number(new Date().valueOf())
         let res = await reqEditArticle(writeState)
         const articleData = res.data
         this.setState({
