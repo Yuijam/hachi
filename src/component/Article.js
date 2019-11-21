@@ -57,7 +57,7 @@ class Article extends Component {
   render() {
     const { articleData, isOwner, onDelete, toEditUrl, comments, submitting, commentAvatar } = this.props
     const { title, text_origin, writeTime } = articleData
-    const writeTimeStr = new Date(writeTime).toLocaleTimeString()
+    const writeTimeStr = new Date(writeTime).toLocaleDateString() + ' ' + new Date(writeTime).toLocaleTimeString()
     const { value } = this.state;
 
     return (
@@ -67,7 +67,7 @@ class Article extends Component {
           <Paragraph>
             <ReactMarkdown source={text_origin} renderers={{ code: CodeBlock }} />
           </Paragraph>
-          <p className='write-time'>{`created at ${writeTimeStr}`}</p>
+          <p className='write-time'>{`${writeTimeStr}`}</p>
 
           {isOwner ?
             <div className='opt'>
