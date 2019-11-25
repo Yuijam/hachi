@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Article from '../component/Article'
 import {userInfoWrapper} from '../redux/Wrapper'
 import { reqDeleteArticle, reqArticle, reqAddComment, reqGetComments } from '../api'
+import {Avatar} from 'antd'
 import moment from 'moment'
 
 class ArticleContainer extends Component {
@@ -42,7 +43,7 @@ class ArticleContainer extends Component {
     console.log('getComments', article_id)
     let comments = await reqGetComments({article_id})
     comments = comments.data.map(c => {
-      return {...c, datetime:moment(c.datetime).fromNow()}
+      return {...c, datetime:moment(c.datetime).fromNow(), avatar:<Link to={`/user/${c.author}`}><Avatar src={c.avatar} icon={c.avatar ? null : 'user'}></Avatar></Link>}
     })
     this.setState({comments})
   }
