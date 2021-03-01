@@ -10,7 +10,7 @@
     "highlight.js": "^9.15.10",
     "marked": "^0.7.0",
     "md5": "^2.2.1",
-    "prismjs": "^1.17.1",
+    "prismjs": "^1.23.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-markdown": "^4.2.2",
